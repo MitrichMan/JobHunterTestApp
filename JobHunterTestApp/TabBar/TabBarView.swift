@@ -19,14 +19,16 @@ struct TabBarView: View {
 
                 HStack {
                     ForEach(0...4, id: \.self) { index in
-                        Button(action: {}, label: {
+                        Button {} label: {
                             VStack {
                                 Image(.searchDefault)
                                     .frame(width: 24, height: 24)
                                     .padding(.horizontal)
-                                Text((index + 1).formatted())
+                                Text("Избранное")
+                                    .font(.system(size: 11))
                             }
-                        })
+                            .foregroundStyle(.gray)
+                        }
                     }
                 }
                 .padding()

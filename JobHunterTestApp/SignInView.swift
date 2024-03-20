@@ -17,6 +17,15 @@ struct SignInView: View {
             Spacer()
             
             VStack {
+                HStack {
+                    Text("Вход в личный кабинет")
+                        .font(.system(size: 24, weight: .semibold))
+                    .foregroundStyle(.white)
+                    
+                    Spacer()
+                }
+                .padding()
+                
                 Spacer()
                 
                 ZStack {
@@ -24,8 +33,9 @@ struct SignInView: View {
                     
                     VStack {
                         HStack {
-                            Text("Sign In")
-                            
+                            Text("Поиск работы")
+                                .font(.system(size: 19))
+                                .foregroundStyle(.white)
                             Spacer()
                         }
                         
@@ -38,7 +48,7 @@ struct SignInView: View {
                                 HStack {
                                     Spacer()
                                     
-                                    Text("Continue")
+                                    Text("Продолжить")
                                     
                                     Spacer()
                                 }
@@ -46,17 +56,19 @@ struct SignInView: View {
                             .buttonStyle(.borderedProminent)
                             
                             Button {} label: {
-                                Text("Enter with password")
+                                Text("Войти с паролем")
                             }
                         }
                     }
                     .padding()
+                    .layoutPriority(1)
                 }
                 .cornerRadius(12)
                 .padding()
                 
                 ZStack(alignment: .leading) {
                     Color.gray
+                    
                     VStack(alignment: .leading) {
                             Text("Поиск сотрудников")
                             .font(.system(size: 18, weight: .semibold))
@@ -79,6 +91,7 @@ struct SignInView: View {
                         
                     }
                     .padding()
+                    .layoutPriority(1)
                 }
                 .cornerRadius(12)
                 .padding()
@@ -90,5 +103,6 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView()
+//    SignInView()
+    CoordinatorView()
 }
