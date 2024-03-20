@@ -12,12 +12,14 @@ struct CoordinatorView: View {
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            coordinator.build(page: .none)
+            coordinator.build(page: .signIn)
                 .navigationDestination(for: Page.self) { page in
                     coordinator.build(page: page)
                 }
+            
         }
-        .environmentObject(coordinator)    }
+        .environmentObject(coordinator)
+    }
 }
 
 #Preview {

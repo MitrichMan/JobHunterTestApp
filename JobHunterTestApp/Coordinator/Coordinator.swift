@@ -23,13 +23,19 @@ import SwiftUI
     }
     
     @ViewBuilder func build(page: Page) -> some View {
-        switch page {
-        default:
-            CoordinatorView()
+        VStack {
+            switch page {
+            case .signIn:
+                SignInView()
+            case .favourites:
+                SignInView()
+            }
+            TabBarView()
         }
     }
 }
 
 enum Page: String {
-    case none
+    case signIn
+    case favourites
 }

@@ -14,6 +14,7 @@
 		4D0BD3F32BAB0E8D0022588F /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD3F22BAB0E8D0022588F /* CoordinatorView.swift */; };
 		4D0BD3F62BAB0F380022588F /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD3F52BAB0F380022588F /* TabBarView.swift */; };
 		4D0BD3F82BAB10800022588F /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD3F72BAB10800022588F /* TabBarViewModel.swift */; };
+		4D0BD3FA2BAB15A10022588F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD3F92BAB15A10022588F /* SignInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		4D0BD3F22BAB0E8D0022588F /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		4D0BD3F52BAB0F380022588F /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		4D0BD3F72BAB10800022588F /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		4D0BD3F92BAB15A10022588F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				4D0BD3F42BAB0F180022588F /* TabBar */,
 				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
 				4D0BD3E02BAB0BC70022588F /* JobHunterTestAppApp.swift */,
+				4D0BD3F92BAB15A10022588F /* SignInView.swift */,
 				4D0BD3E42BAB0BC90022588F /* Assets.xcassets */,
 				4D0BD3E62BAB0BC90022588F /* Preview Content */,
 			);
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D0BD3FA2BAB15A10022588F /* SignInView.swift in Sources */,
 				4D0BD3F82BAB10800022588F /* TabBarViewModel.swift in Sources */,
 				4D0BD3E12BAB0BC70022588F /* JobHunterTestAppApp.swift in Sources */,
 				4D0BD3F12BAB0D8F0022588F /* Coordinator.swift in Sources */,
