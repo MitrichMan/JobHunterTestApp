@@ -23,20 +23,31 @@ import SwiftUI
     }
     
     @ViewBuilder func build(page: Page) -> some View {
-        VStack {
             switch page {
             case .signIn:
                 SignInView()
+            case .verification:
+                VerificationCodeView()
+            case .main:
+                MainView()
             case .favourites:
-                SignInView()
+                FavouritesView()
+            case .responses:
+                ResponsesView()
+            case .messages:
+                MessagesView()
+            case .profile:
+                ProfileView()
             }
-            TabBarView()
-                .frame(height: 54)
-        }
     }
 }
 
 enum Page: String {
     case signIn
-    case favourites
+    case verification
+    case main = "Поиск"
+    case favourites = "Избранное"
+    case responses = "Отклики"
+    case messages = "Сообщения"
+    case profile = "Профиль"
 }

@@ -11,14 +11,25 @@ struct CoordinatorView: View {
     @StateObject private var coordinator = Coordinator()
     
     var body: some View {
-        NavigationStack(path: $coordinator.path) {
-            coordinator.build(page: .signIn)
-                .navigationDestination(for: Page.self) { page in
-                    coordinator.build(page: page)
-                }
+        ZStack {
+            Color.black
+                .ignoresSafeArea()
             
+            VStack {
+            NavigationStack(path: $coordinator.path) {
+                    coordinator.build(page: .signIn)
+                        .navigationDestination(for: Page.self) { page in
+                            coordinator.build(page: page)
+                    }
+                }
+            .layoutPriority(1)
+                
+                TabBarView()
+            }
+            .environmentObject(coordinator)
         }
-        .environmentObject(coordinator)
+        
+        
     }
 }
 
