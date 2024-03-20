@@ -31,6 +31,7 @@ import SwiftUI
                 SignInView()
             }
             TabBarView()
+                .frame(height: 54)
         }
     }
 }

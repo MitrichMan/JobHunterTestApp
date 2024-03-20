@@ -13,8 +13,12 @@ struct SignInView: View {
         ZStack {
             Color.black
                 .ignoresSafeArea()
+            
             Spacer()
+            
             VStack {
+                Spacer()
+                
                 ZStack {
                     Color.gray
                     
@@ -40,6 +44,7 @@ struct SignInView: View {
                                 }
                             }
                             .buttonStyle(.borderedProminent)
+                            
                             Button {} label: {
                                 Text("Enter with password")
                             }
@@ -50,12 +55,35 @@ struct SignInView: View {
                 .cornerRadius(12)
                 .padding()
                 
-                ZStack {
+                ZStack(alignment: .leading) {
                     Color.gray
-                    
+                    VStack(alignment: .leading) {
+                            Text("Поиск сотрудников")
+                            .font(.system(size: 18, weight: .semibold))
+                                .foregroundStyle(.white)
+                          
+                        
+                        Text("Размещение вакансий и доступ к базе резюме")
+                            .font(.system(size: 14))
+                            .foregroundStyle(.white)
+                        
+                        Button {} label: {
+                            ZStack {
+                                Capsule()
+                                    .foregroundStyle(.green)
+                                Text("Я ищу сотрудников")
+                                    .foregroundStyle(.white)
+                            }
+                            .frame(height: 35)
+                        }
+                        
+                    }
+                    .padding()
                 }
                 .cornerRadius(12)
                 .padding()
+                
+                Spacer()
             }
         }
     }
