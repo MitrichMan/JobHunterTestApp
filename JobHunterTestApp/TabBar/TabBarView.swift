@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TabBarView: View {
     @EnvironmentObject private var coordinator: Coordinator
+    @StateObject private var viewModel = TabBarViewModel()
+
     
     var body: some View {
         VStack {
@@ -17,36 +19,36 @@ struct TabBarView: View {
                 .foregroundStyle(.gray)
             
             HStack {
-                ForEach(0...4, id: \.self) { index in
+                ForEach(viewModel.dataManager.tabBarTabs, id: \.self) { tab in
+                    
                     Button
                     {
-                        switch index {
-                        case 0 :
-                            coordinator.push(.main)
-                        case 1 :
-                            coordinator.push(.favourites)
-                        case 2 :
-                            coordinator.push(.responses)
-                        case 3 :
-                            coordinator.push(.messages)
-                        case 4 :
-                            coordinator.push(.profile)
-                        default:
+                        if !viewModel.dataManager.isLoggedIn {
                             return
+                        } else {
+                            //                        if viewModel.dataManager.isLoggedIn {
+                            viewModel.dataManager.presentedTab = tab
+                            coordinator.push(viewModel.dataManager.presentedTab)
                         }
-                        
+//                        } else { return }
                     }
                 label: {
                     VStack {
                         Image(.searchDefault)
                             .frame(width: 24, height: 24)
                             .padding(.horizontal)
-                        Text("Избранное")
+                        Text(tab.rawValue)
                             .font(.system(size: 11))
                     }
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(
+                        viewModel.getcolor(
+                            if: tab, 
+                            matches: viewModel.dataManager.presentedTab
+                        )
+                    )
                 }
                 }
+                .disabled(!DataManager.shared.isLoggedIn)
             }
             .padding()
         }

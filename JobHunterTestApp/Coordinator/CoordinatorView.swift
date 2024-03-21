@@ -17,16 +17,17 @@ struct CoordinatorView: View {
             
             VStack {
             NavigationStack(path: $coordinator.path) {
-                    coordinator.build(page: .signIn)
+                coordinator.build(page: DataManager.shared.presentedTab)
                         .navigationDestination(for: Page.self) { page in
                             coordinator.build(page: page)
                     }
                 }
+            .environmentObject(coordinator)
             .layoutPriority(1)
                 
                 TabBarView()
+                    .environmentObject(coordinator)
             }
-            .environmentObject(coordinator)
         }
         
         

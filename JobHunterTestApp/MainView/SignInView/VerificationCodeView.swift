@@ -33,7 +33,9 @@ struct VerificationCodeView: View {
                 }
                 
                 Button {
-                    coordinator.push(.main)
+                    DataManager.shared.isLoggedIn = true
+                    DataManager.shared.presentedTab = .main
+                    coordinator.push(DataManager.shared.presentedTab)
                 } label: {
                     HStack {
                         Spacer()

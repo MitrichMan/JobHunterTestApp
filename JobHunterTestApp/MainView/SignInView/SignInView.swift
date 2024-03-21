@@ -11,13 +11,16 @@ struct SignInView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
+    @Binding var isLoggedIn: Bool
+
+    
     @State var text = ""
     var body: some View {
         ZStack {
             Color.black
                 .ignoresSafeArea()
                         
-            if !viewModel.isSignedIn {
+            if !viewModel.dataManager.isLoggedIn {
                 VStack {
                     HStack {
                         Text("Вход в личный кабинет")
@@ -103,7 +106,7 @@ struct SignInView: View {
                     Spacer()
                 }
             } else {
-                VerificationCodeView()
+                MainView()
             }
         }
     }

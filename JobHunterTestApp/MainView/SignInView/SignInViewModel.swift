@@ -8,5 +8,8 @@
 import Foundation
 
 class SignInViewModel: ObservableObject {
-    @Published var isSignedIn = false
+    
+    @Published var dataManager = DataManager.shared
+
+//    @Published var isLoggedIn = DataManager.shared.isLoggedIn
 }

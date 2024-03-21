@@ -22,6 +22,8 @@
 		4D0BD4072BAB591A0022588F /* ResponsesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD4062BAB591A0022588F /* ResponsesView.swift */; };
 		4D0BD4092BAB59290022588F /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD4082BAB59290022588F /* MessagesView.swift */; };
 		4D0BD40B2BAB59390022588F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40A2BAB59390022588F /* ProfileView.swift */; };
+		4D0BD40D2BAB69700022588F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40C2BAB69700022588F /* DataManager.swift */; };
+		4D0BD4102BAC62B60022588F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40F2BAC62B60022588F /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		4D0BD4062BAB591A0022588F /* ResponsesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsesView.swift; sourceTree = "<group>"; };
 		4D0BD4082BAB59290022588F /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		4D0BD40A2BAB59390022588F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4D0BD40C2BAB69700022588F /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		4D0BD40F2BAC62B60022588F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,12 +78,12 @@
 			isa = PBXGroup;
 			children = (
 				4D0BD3E02BAB0BC70022588F /* JobHunterTestAppApp.swift */,
-				4D0BD3FD2BAB4E3A0022588F /* SignInView */,
+				4D0BD4112BAC62C00022588F /* MainView */,
 				4D0BD3F42BAB0F180022588F /* TabBar */,
 				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
+				4D0BD40E2BAB69760022588F /* Services */,
 				4D0BD3E42BAB0BC90022588F /* Assets.xcassets */,
 				4D0BD3E62BAB0BC90022588F /* Preview Content */,
-				4D0BD4022BAB56570022588F /* MainView.swift */,
 				4D0BD4042BAB59080022588F /* FavouritesView.swift */,
 				4D0BD4062BAB591A0022588F /* ResponsesView.swift */,
 				4D0BD4082BAB59290022588F /* MessagesView.swift */,
@@ -122,6 +126,24 @@
 				4D0BD4002BAB4FC20022588F /* VerificationCodeView.swift */,
 			);
 			path = SignInView;
+			sourceTree = "<group>";
+		};
+		4D0BD40E2BAB69760022588F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4D0BD40C2BAB69700022588F /* DataManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4D0BD4112BAC62C00022588F /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				4D0BD4022BAB56570022588F /* MainView.swift */,
+				4D0BD40F2BAC62B60022588F /* MainViewModel.swift */,
+				4D0BD3FD2BAB4E3A0022588F /* SignInView */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +219,9 @@
 				4D0BD3FA2BAB15A10022588F /* SignInView.swift in Sources */,
 				4D0BD40B2BAB59390022588F /* ProfileView.swift in Sources */,
 				4D0BD4032BAB56570022588F /* MainView.swift in Sources */,
+				4D0BD40D2BAB69700022588F /* DataManager.swift in Sources */,
 				4D0BD3FF2BAB4E740022588F /* SignInViewModel.swift in Sources */,
+				4D0BD4102BAC62B60022588F /* MainViewModel.swift in Sources */,
 				4D0BD3F82BAB10800022588F /* TabBarViewModel.swift in Sources */,
 				4D0BD3E12BAB0BC70022588F /* JobHunterTestAppApp.swift in Sources */,
 				4D0BD3F12BAB0D8F0022588F /* Coordinator.swift in Sources */,

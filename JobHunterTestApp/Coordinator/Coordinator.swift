@@ -8,6 +8,7 @@
 import SwiftUI
 
 @MainActor class Coordinator: ObservableObject {
+    @Published var dataManager = DataManager.shared
     @Published var path = NavigationPath()
     
     func push(_ page: Page) {
@@ -25,7 +26,7 @@ import SwiftUI
     @ViewBuilder func build(page: Page) -> some View {
             switch page {
             case .signIn:
-                SignInView()
+                SignInView(isLoggedIn: .constant(false))
             case .verification:
                 VerificationCodeView()
             case .main:
