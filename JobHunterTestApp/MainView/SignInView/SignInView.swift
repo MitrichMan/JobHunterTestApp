@@ -11,8 +11,7 @@ struct SignInView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
-    @Binding var isLoggedIn: Bool
-
+    @State private var presented = false
     
     @State var text = ""
     var body: some View {
@@ -50,7 +49,8 @@ struct SignInView: View {
                             
                             HStack {
                                 Button {
-                                    coordinator.push(.verification)
+//                                    coordinator.push(.verification)
+                                    presented.toggle()
                                 } label: {
                                     HStack {
                                         Spacer()
@@ -59,6 +59,9 @@ struct SignInView: View {
                                         
                                         Spacer()
                                     }
+                                }
+                                .sheet(isPresented: $presented) {
+                                    VerificationCodeView(presented: $presented)
                                 }
                                 .buttonStyle(.borderedProminent)
                                 

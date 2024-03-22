@@ -26,9 +26,9 @@ import SwiftUI
     @ViewBuilder func build(page: Page) -> some View {
             switch page {
             case .signIn:
-                SignInView(isLoggedIn: .constant(false))
-            case .verification:
-                VerificationCodeView()
+                SignInView()
+//            case .verification:
+//                VerificationCodeView()
             case .main:
                 MainView()
             case .favourites:
@@ -45,7 +45,7 @@ import SwiftUI
 
 enum Page: String {
     case signIn
-    case verification
+//    case verification
     case main = "Поиск"
     case favourites = "Избранное"
     case responses = "Отклики"

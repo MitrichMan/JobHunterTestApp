@@ -9,6 +9,8 @@ import SwiftUI
 
 struct VerificationCodeView: View {
     @EnvironmentObject private var coordinator: Coordinator
+    
+    @Binding var presented: Bool
 
     var body: some View {
         ZStack {
@@ -35,6 +37,7 @@ struct VerificationCodeView: View {
                 Button {
                     DataManager.shared.isLoggedIn = true
                     DataManager.shared.presentedTab = .main
+                    presented = false
                     coordinator.push(DataManager.shared.presentedTab)
                 } label: {
                     HStack {
@@ -54,5 +57,5 @@ struct VerificationCodeView: View {
 }
 
 #Preview {
-    VerificationCodeView()
+    VerificationCodeView(presented: .constant(true))
 }

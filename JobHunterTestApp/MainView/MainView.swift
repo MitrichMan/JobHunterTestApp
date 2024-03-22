@@ -12,7 +12,7 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
     
     var body: some View {
-        if viewModel.isLoggedIn {
+//        if viewModel.isLoggedIn {
             ZStack {
                 Color.black.ignoresSafeArea()
                 
@@ -21,7 +21,7 @@ struct MainView: View {
                     .foregroundStyle(.white)
             }
             .navigationBarBackButtonHidden()
-        } else { SignInView(isLoggedIn: $viewModel.isLoggedIn) }
+//        } else { SignInView(isLoggedIn: $viewModel.isLoggedIn) }
     }
 }
 

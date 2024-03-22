@@ -24,6 +24,8 @@
 		4D0BD40B2BAB59390022588F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40A2BAB59390022588F /* ProfileView.swift */; };
 		4D0BD40D2BAB69700022588F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40C2BAB69700022588F /* DataManager.swift */; };
 		4D0BD4102BAC62B60022588F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40F2BAC62B60022588F /* MainViewModel.swift */; };
+		4D0BD4142BADA6310022588F /* Vacancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD4132BADA6310022588F /* Vacancy.swift */; };
+		4D0BD4162BAE12E00022588F /* Network Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD4152BAE12E00022588F /* Network Manager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		4D0BD40A2BAB59390022588F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4D0BD40C2BAB69700022588F /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		4D0BD40F2BAC62B60022588F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		4D0BD4132BADA6310022588F /* Vacancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vacancy.swift; sourceTree = "<group>"; };
+		4D0BD4152BAE12E00022588F /* Network Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network Manager.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 				4D0BD3F42BAB0F180022588F /* TabBar */,
 				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
 				4D0BD40E2BAB69760022588F /* Services */,
+				4D0BD4122BADA5930022588F /* Models */,
 				4D0BD3E42BAB0BC90022588F /* Assets.xcassets */,
 				4D0BD3E62BAB0BC90022588F /* Preview Content */,
 				4D0BD4042BAB59080022588F /* FavouritesView.swift */,
@@ -132,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				4D0BD40C2BAB69700022588F /* DataManager.swift */,
+				4D0BD4152BAE12E00022588F /* Network Manager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -144,6 +150,14 @@
 				4D0BD3FD2BAB4E3A0022588F /* SignInView */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		4D0BD4122BADA5930022588F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4D0BD4132BADA6310022588F /* Vacancy.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,8 +241,10 @@
 				4D0BD3F12BAB0D8F0022588F /* Coordinator.swift in Sources */,
 				4D0BD3F62BAB0F380022588F /* TabBarView.swift in Sources */,
 				4D0BD4012BAB4FC20022588F /* VerificationCodeView.swift in Sources */,
+				4D0BD4162BAE12E00022588F /* Network Manager.swift in Sources */,
 				4D0BD4092BAB59290022588F /* MessagesView.swift in Sources */,
 				4D0BD4052BAB59080022588F /* FavouritesView.swift in Sources */,
+				4D0BD4142BADA6310022588F /* Vacancy.swift in Sources */,
 				4D0BD3F32BAB0E8D0022588F /* CoordinatorView.swift in Sources */,
 				4D0BD4072BAB591A0022588F /* ResponsesView.swift in Sources */,
 			);

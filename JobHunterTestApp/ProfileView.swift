@@ -20,8 +20,9 @@ struct ProfileView: View {
                 .foregroundStyle(.white)
                 
                 Button {
-                    coordinator.popToRoot()
                     DataManager.shared.isLoggedIn = false
+                    DataManager.shared.presentedTab = .signIn
+                    coordinator.popToRoot()
                 } label: {
                     HStack {
                         Spacer()

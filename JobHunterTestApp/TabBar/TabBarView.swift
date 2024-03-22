@@ -10,7 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = TabBarViewModel()
-
+    
     
     var body: some View {
         VStack {
@@ -23,14 +23,12 @@ struct TabBarView: View {
                     
                     Button
                     {
-                        if !viewModel.dataManager.isLoggedIn {
-                            return
-                        } else {
-                            //                        if viewModel.dataManager.isLoggedIn {
+                        
+                        if viewModel.dataManager.isLoggedIn {
                             viewModel.dataManager.presentedTab = tab
                             coordinator.push(viewModel.dataManager.presentedTab)
-                        }
-//                        } else { return }
+                            
+                        } else { return }
                     }
                 label: {
                     VStack {
@@ -42,13 +40,14 @@ struct TabBarView: View {
                     }
                     .foregroundStyle(
                         viewModel.getcolor(
-                            if: tab, 
+                            if: tab,
                             matches: viewModel.dataManager.presentedTab
                         )
                     )
                 }
+                .disabled(viewModel.dataManager.presentedTab == tab ? true : false)
                 }
-                .disabled(!DataManager.shared.isLoggedIn)
+                .disabled(!viewModel.dataManager.isLoggedIn)
             }
             .padding()
         }
