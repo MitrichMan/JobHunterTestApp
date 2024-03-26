@@ -24,31 +24,34 @@ import SwiftUI
     }
     
     @ViewBuilder func build(page: Page) -> some View {
-            switch page {
-            case .signIn:
-                SignInView()
-//            case .verification:
-//                VerificationCodeView()
-            case .main:
-                MainView()
-            case .favourites:
-                FavouritesView()
-            case .responses:
-                ResponsesView()
-            case .messages:
-                MessagesView()
-            case .profile:
-                ProfileView()
-            }
+        switch page {
+        case .signIn:
+            SignInView()
+        case .main:
+            MainView()
+        case .favourites:
+            FavouritesView()
+        case .responses:
+            ResponsesView()
+        case .messages:
+            MessagesView()
+        case .profile:
+            ProfileView()
+        case .vacancyList:
+            VacancyListView(vacancies: dataManager.mockMainViewDataResponse.vacancies)
+        case .vacancy:
+            VacancyView()
+        }
     }
 }
 
 enum Page: String {
     case signIn
-//    case verification
     case main = "Поиск"
     case favourites = "Избранное"
     case responses = "Отклики"
     case messages = "Сообщения"
     case profile = "Профиль"
+    case vacancyList = "По соответствию"
+    case vacancy = "Страница вакансии"
 }

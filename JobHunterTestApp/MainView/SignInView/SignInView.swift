@@ -18,13 +18,13 @@ struct SignInView: View {
         ZStack {
             Color.black
                 .ignoresSafeArea()
-                        
+            
             if !viewModel.dataManager.isLoggedIn {
                 VStack {
                     HStack {
                         Text("Вход в личный кабинет")
                             .font(.system(size: 24, weight: .semibold))
-                        .foregroundStyle(.white)
+                            .foregroundStyle(.white)
                         
                         Spacer()
                     }
@@ -46,10 +46,9 @@ struct SignInView: View {
                             TextField("Placeholder", text: $text)
                                 .textFieldStyle(.roundedBorder)
                             
-                            
                             HStack {
                                 Button {
-//                                    coordinator.push(.verification)
+                                    //                                    coordinator.push(.verification)
                                     presented.toggle()
                                 } label: {
                                     HStack {
@@ -68,6 +67,7 @@ struct SignInView: View {
                                 Button {} label: {
                                     Text("Войти с паролем")
                                 }
+                                
                             }
                         }
                         .padding()
@@ -80,10 +80,10 @@ struct SignInView: View {
                         Color.gray
                         
                         VStack(alignment: .leading) {
-                                Text("Поиск сотрудников")
+                            Text("Поиск сотрудников")
                                 .font(.system(size: 18, weight: .semibold))
-                                    .foregroundStyle(.white)
-                              
+                                .foregroundStyle(.white)
+                            
                             
                             Text("Размещение вакансий и доступ к базе резюме")
                                 .font(.system(size: 14))
@@ -116,6 +116,6 @@ struct SignInView: View {
 }
 
 #Preview {
-//    SignInView()
+    //    SignInView()
     CoordinatorView()
 }

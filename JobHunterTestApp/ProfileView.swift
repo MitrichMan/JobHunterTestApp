@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject private var coordinator: Coordinator
-
+    
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
@@ -17,7 +17,7 @@ struct ProfileView: View {
             VStack {
                 Text("Profile")
                     .font(.system(size: 40))
-                .foregroundStyle(.white)
+                    .foregroundStyle(.white)
                 
                 Button {
                     DataManager.shared.isLoggedIn = false
@@ -36,7 +36,8 @@ struct ProfileView: View {
             }
             .padding()
         }
-        .navigationBarBackButtonHidden()    }
+        .navigationBarBackButtonHidden()
+    }
 }
 
 #Preview {

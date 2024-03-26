@@ -26,6 +26,10 @@
 		4D0BD4102BAC62B60022588F /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD40F2BAC62B60022588F /* MainViewModel.swift */; };
 		4D0BD4142BADA6310022588F /* Vacancy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD4132BADA6310022588F /* Vacancy.swift */; };
 		4D0BD4162BAE12E00022588F /* Network Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0BD4152BAE12E00022588F /* Network Manager.swift */; };
+		4D62E7792BAF63B60017241C /* VacancyListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E7782BAF63B60017241C /* VacancyListCellView.swift */; };
+		4D62E77B2BB056A00017241C /* VacancyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E77A2BB056A00017241C /* VacancyListView.swift */; };
+		4D62E77E2BB05E910017241C /* VacancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E77D2BB05E910017241C /* VacancyView.swift */; };
+		4D62E7802BB2F0630017241C /* VavancyListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E77F2BB2F0630017241C /* VavancyListCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		4D0BD40F2BAC62B60022588F /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4D0BD4132BADA6310022588F /* Vacancy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vacancy.swift; sourceTree = "<group>"; };
 		4D0BD4152BAE12E00022588F /* Network Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Network Manager.swift"; sourceTree = "<group>"; };
+		4D62E7782BAF63B60017241C /* VacancyListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyListCellView.swift; sourceTree = "<group>"; };
+		4D62E77A2BB056A00017241C /* VacancyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyListView.swift; sourceTree = "<group>"; };
+		4D62E77D2BB05E910017241C /* VacancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyView.swift; sourceTree = "<group>"; };
+		4D62E77F2BB2F0630017241C /* VavancyListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VavancyListCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,7 @@
 				4D0BD3E02BAB0BC70022588F /* JobHunterTestAppApp.swift */,
 				4D0BD4112BAC62C00022588F /* MainView */,
 				4D0BD3F42BAB0F180022588F /* TabBar */,
+				4D62E7772BAF63240017241C /* VacancyListCell */,
 				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
 				4D0BD40E2BAB69760022588F /* Services */,
 				4D0BD4122BADA5930022588F /* Models */,
@@ -93,6 +102,7 @@
 				4D0BD4062BAB591A0022588F /* ResponsesView.swift */,
 				4D0BD4082BAB59290022588F /* MessagesView.swift */,
 				4D0BD40A2BAB59390022588F /* ProfileView.swift */,
+				4D62E77D2BB05E910017241C /* VacancyView.swift */,
 			);
 			path = JobHunterTestApp;
 			sourceTree = "<group>";
@@ -148,6 +158,7 @@
 				4D0BD4022BAB56570022588F /* MainView.swift */,
 				4D0BD40F2BAC62B60022588F /* MainViewModel.swift */,
 				4D0BD3FD2BAB4E3A0022588F /* SignInView */,
+				4D62E77C2BB05E5B0017241C /* VacancyListView */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -158,6 +169,23 @@
 				4D0BD4132BADA6310022588F /* Vacancy.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4D62E7772BAF63240017241C /* VacancyListCell */ = {
+			isa = PBXGroup;
+			children = (
+				4D62E7782BAF63B60017241C /* VacancyListCellView.swift */,
+				4D62E77F2BB2F0630017241C /* VavancyListCellViewModel.swift */,
+			);
+			path = VacancyListCell;
+			sourceTree = "<group>";
+		};
+		4D62E77C2BB05E5B0017241C /* VacancyListView */ = {
+			isa = PBXGroup;
+			children = (
+				4D62E77A2BB056A00017241C /* VacancyListView.swift */,
+			);
+			path = VacancyListView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +260,7 @@
 			files = (
 				4D0BD3FA2BAB15A10022588F /* SignInView.swift in Sources */,
 				4D0BD40B2BAB59390022588F /* ProfileView.swift in Sources */,
+				4D62E7802BB2F0630017241C /* VavancyListCellViewModel.swift in Sources */,
 				4D0BD4032BAB56570022588F /* MainView.swift in Sources */,
 				4D0BD40D2BAB69700022588F /* DataManager.swift in Sources */,
 				4D0BD3FF2BAB4E740022588F /* SignInViewModel.swift in Sources */,
@@ -240,11 +269,14 @@
 				4D0BD3E12BAB0BC70022588F /* JobHunterTestAppApp.swift in Sources */,
 				4D0BD3F12BAB0D8F0022588F /* Coordinator.swift in Sources */,
 				4D0BD3F62BAB0F380022588F /* TabBarView.swift in Sources */,
+				4D62E7792BAF63B60017241C /* VacancyListCellView.swift in Sources */,
 				4D0BD4012BAB4FC20022588F /* VerificationCodeView.swift in Sources */,
 				4D0BD4162BAE12E00022588F /* Network Manager.swift in Sources */,
 				4D0BD4092BAB59290022588F /* MessagesView.swift in Sources */,
 				4D0BD4052BAB59080022588F /* FavouritesView.swift in Sources */,
 				4D0BD4142BADA6310022588F /* Vacancy.swift in Sources */,
+				4D62E77E2BB05E910017241C /* VacancyView.swift in Sources */,
+				4D62E77B2BB056A00017241C /* VacancyListView.swift in Sources */,
 				4D0BD3F32BAB0E8D0022588F /* CoordinatorView.swift in Sources */,
 				4D0BD4072BAB591A0022588F /* ResponsesView.swift in Sources */,
 			);

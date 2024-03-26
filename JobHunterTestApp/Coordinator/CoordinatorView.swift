@@ -16,14 +16,14 @@ struct CoordinatorView: View {
                 .ignoresSafeArea()
             
             VStack {
-            NavigationStack(path: $coordinator.path) {
-                coordinator.build(page: DataManager.shared.presentedTab)
+                NavigationStack(path: $coordinator.path) {
+                    coordinator.build(page: DataManager.shared.presentedTab)
                         .navigationDestination(for: Page.self) { page in
                             coordinator.build(page: page)
-                    }
+                        }
                 }
-            .environmentObject(coordinator)
-            .layoutPriority(1)
+                .environmentObject(coordinator)
+                .layoutPriority(1)
                 
                 TabBarView()
                     .environmentObject(coordinator)
