@@ -32,9 +32,23 @@ struct TabBarView: View {
                     }
                 label: {
                     VStack {
-                        Image(.searchDefault)
-                            .frame(width: 24, height: 24)
-                            .padding(.horizontal)
+// TODO: - make sticker logic
+//                        ZStack {
+                            viewModel.getImage(for: tab)
+                                .frame(width: 24, height: 24)
+                                .padding(.horizontal)
+                            
+//                            ZStack {
+//                                Image(.notificationSticker)
+//                                    .foregroundStyle(.red)
+//                                
+//                                Text("4")
+//                                    .font(.system(size: 8, weight: .bold))
+//                                    .foregroundStyle(.white)
+//                                    .offset(CGSize(width: 7.9, height: -6))
+//                            }
+//                        }
+                        
                         Text(tab.rawValue)
                             .font(.system(size: 11))
                     }

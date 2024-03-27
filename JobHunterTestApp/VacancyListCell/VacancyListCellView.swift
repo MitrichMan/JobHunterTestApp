@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct VacancyListCellView: View {
+    @StateObject private var viewModel = VavancyListCellViewModel()
+    
     var vacancy: Vacancy
     var body: some View {
         ZStack {
@@ -15,7 +17,7 @@ struct VacancyListCellView: View {
             
             VStack(alignment: .leading) {
                 HStack {
-                    Text("Сейчас просматривает 1 человек")
+                    Text("Сейчас просматривает \(vacancy.lookingNumber?.formatted() ?? "0") человек")
                         .font(.system(size: 18))
                         .foregroundStyle(.green)
                     
@@ -25,19 +27,20 @@ struct VacancyListCellView: View {
                         Image(.searchDefault)
                             .resizable()
                             .frame(width: 24, height: 24)
+                            .foregroundStyle(.blue)
                     }
                 }
                 
-                Text("UI/UX Designer")
+                Text(vacancy.title)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(.white)
                 
-                Text("Минск")
+                Text(vacancy.address.town)
                     .font(.system(size: 18))
                     .foregroundStyle(.white)
                 
                 HStack {
-                    Text("Мобирикс")
+                    Text(vacancy.company)
                         .font(.system(size: 18))
                         .foregroundStyle(.white)
                     
@@ -53,15 +56,15 @@ struct VacancyListCellView: View {
                         .resizable()
                         .frame(width: 16, height: 16)
                     
-                    Text("Опыт от 1 года до 3 лет")
+                    Text(vacancy.experience.previewText)
                         .font(.system(size: 18))
                         .foregroundStyle(.white)
                     
                     Spacer()
                 }
-                
-                Text("Опубликовано 20 февраля")
+                Text(viewModel.getDateFrom(string: vacancy.publishedDate).formatted(.dateTime))
                     .foregroundStyle(.yellow)
+                
                 
                 Button {} label: {
                     ZStack {
@@ -75,6 +78,9 @@ struct VacancyListCellView: View {
             }
             .padding()
         }
+        .onAppear(perform: {
+            viewModel.vacancy = vacancy
+        })
         .cornerRadius(12)
     }
 }

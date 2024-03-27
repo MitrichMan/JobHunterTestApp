@@ -33,7 +33,7 @@ struct SignInView: View {
                     Spacer()
                     
                     ZStack {
-                        Color.gray
+                        Color.gray1
                         
                         VStack {
                             HStack {
@@ -43,26 +43,63 @@ struct SignInView: View {
                                 Spacer()
                             }
                             
-                            TextField("Placeholder", text: $text)
-                                .textFieldStyle(.roundedBorder)
+                            ZStack {
+                                Color(.gray2)
+                                    .frame(height: 40)
+                                    .cornerRadius(8)
+                                
+                                HStack(spacing: 8) {
+                                    Image(.responsesDefault)
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundStyle(.gray4)
+                                    
+                                    Text("Электронная почта или телефон")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(.gray4)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 8)
+                                
+                                TextField("", text: $text)
+                            }
                             
                             HStack {
                                 Button {
-                                    //                                    coordinator.push(.verification)
-                                    presented.toggle()
+                                    if DataManager.shared.emailIsValid {
+                                    // coordinator.push(.verification)
+                                        presented.toggle()
+                                    }
                                 } label: {
-                                    HStack {
-                                        Spacer()
+                                    ZStack {
+                                        if DataManager.shared.emailIsValid {
+                                            Color.blue1
+                                                .cornerRadius(8)
+                                                .frame(height: 48)
+                                        } else { 
+                                            Color.darkBlue
+                                                .cornerRadius(8)
+                                                .frame(height: 48)
+                                        }
                                         
-                                        Text("Продолжить")
-                                        
-                                        Spacer()
+                                        HStack {
+                                            Spacer()
+                                            
+                                            Text("Продолжить")
+                                                .font(.system(size: 16, weight: .semibold))
+                                                .foregroundStyle(
+                                                    DataManager.shared.emailIsValid ? .white : .gray4
+                                                )
+                                            
+                                            Spacer()
+                                        }
                                     }
                                 }
+//                                .buttonStyle(.borderedProminent)
                                 .sheet(isPresented: $presented) {
                                     VerificationCodeView(presented: $presented)
                                 }
-                                .buttonStyle(.borderedProminent)
                                 
                                 Button {} label: {
                                     Text("Войти с паролем")
@@ -77,7 +114,7 @@ struct SignInView: View {
                     .padding()
                     
                     ZStack(alignment: .leading) {
-                        Color.gray
+                        Color.gray1
                         
                         VStack(alignment: .leading) {
                             Text("Поиск сотрудников")
@@ -92,7 +129,7 @@ struct SignInView: View {
                             Button {} label: {
                                 ZStack {
                                     Capsule()
-                                        .foregroundStyle(.green)
+                                        .foregroundStyle(.green1)
                                     Text("Я ищу сотрудников")
                                         .foregroundStyle(.white)
                                 }

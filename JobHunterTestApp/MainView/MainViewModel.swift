@@ -31,7 +31,9 @@ class MainViewModel: ObservableObject {
     
     func fetchMockData() async {
         mainViewData = dataManager.mockMainViewDataResponse
+        
         try? await Task.sleep(nanoseconds: 2_000_000_000)
+        
         isDataFetched = true
     }
 }

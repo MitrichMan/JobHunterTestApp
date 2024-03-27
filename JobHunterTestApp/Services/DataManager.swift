@@ -10,6 +10,7 @@ import Foundation
 class DataManager: ObservableObject {
     static let shared = DataManager()
     
+    @Published var emailIsValid = true
     @Published var isLoggedIn = false
     @Published var presentedTab: Page = .signIn
     

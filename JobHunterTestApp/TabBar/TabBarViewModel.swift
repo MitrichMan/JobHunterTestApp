@@ -20,4 +20,21 @@ class TabBarViewModel: ObservableObject {
             return Color.gray
         }
     }
+    
+    func getImage(for tab: Page) -> Image {
+        switch tab {
+        case .main:
+            Image(.searchDefault)
+        case .favourites:
+            Image(.heartDefault)
+        case .responses:
+            Image(.responsesDefault)
+        case .messages:
+            Image(.messagesDefault)
+        case .profile:
+            Image(.profileDefault)
+        default :
+            Image(systemName: "x.circle")
+        }
+    }
 }
