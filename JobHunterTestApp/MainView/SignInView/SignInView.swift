@@ -11,8 +11,8 @@ struct SignInView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
-    @State private var presented = false
-    
+//    @State private var presented = false
+        
     @State var text = ""
     var body: some View {
         ZStack {
@@ -48,32 +48,37 @@ struct SignInView: View {
                                     .frame(height: 40)
                                     .cornerRadius(8)
                                 
-                                HStack(spacing: 8) {
-                                    Image(.responsesDefault)
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundStyle(.gray4)
-                                    
-                                    Text("Электронная почта или телефон")
-                                        .font(.system(size: 14))
-                                        .foregroundStyle(.gray4)
-                                    
-                                    Spacer()
+                                if text.count  < 1 {
+                                    HStack(spacing: 8) {
+                                        Image(.responsesDefault)
+                                            .resizable()
+                                            .frame(width: 24, height: 24)
+                                            .foregroundStyle(.gray4)
+                                        
+                                        Text("Электронная почта или телефон")
+                                            .font(.system(size: 14))
+                                            .foregroundStyle(.gray4)
+                                        
+                                        Spacer()
+                                    }
+                                    .padding(.horizontal, 8)
                                 }
-                                .padding(.horizontal, 8)
                                 
                                 TextField("", text: $text)
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 8)
                             }
                             
-                            HStack {
+                            HStack(spacing: 8) {
                                 Button {
-                                    if DataManager.shared.emailIsValid {
+                                    if !text.isEmpty {
                                     // coordinator.push(.verification)
-                                        presented.toggle()
+//                                        presented.toggle()
+                                        viewModel.continueButonTapped(with: text)
                                     }
                                 } label: {
                                     ZStack {
-                                        if DataManager.shared.emailIsValid {
+                                        if !text.isEmpty {
                                             Color.blue1
                                                 .cornerRadius(8)
                                                 .frame(height: 48)
@@ -89,16 +94,20 @@ struct SignInView: View {
                                             Text("Продолжить")
                                                 .font(.system(size: 16, weight: .semibold))
                                                 .foregroundStyle(
-                                                    DataManager.shared.emailIsValid ? .white : .gray4
+                                                    text.isEmpty ? .white : .gray4
                                                 )
                                             
                                             Spacer()
                                         }
                                     }
                                 }
-//                                .buttonStyle(.borderedProminent)
-                                .sheet(isPresented: $presented) {
-                                    VerificationCodeView(presented: $presented)
+                                .disabled(text.isEmpty)
+                                .sheet(
+                                    isPresented: $viewModel.isVerificationCodeViewPresented
+                                ) {
+                                    VerificationCodeView(
+                                        presented: $viewModel.isVerificationCodeViewPresented
+                                    )
                                 }
                                 
                                 Button {} label: {
