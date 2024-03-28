@@ -8,15 +8,11 @@
 import Foundation
 
 class MainViewModel: ObservableObject {
-    @Published var dataManager = DataManager.shared
-    
-    @Published var isLoggedIn = false {
-        didSet {
-            dataManager.isLoggedIn = isLoggedIn
-        }
-    }
-    
     @Published var isDataFetched = false
+    
+    var dataManager = DataManager.shared
+    
+    var isLoggedIn = false
     
     var mainViewData = MainViewDataResponse(offers: [], vacancies: [])
     
@@ -34,6 +30,8 @@ class MainViewModel: ObservableObject {
         
         try? await Task.sleep(nanoseconds: 2_000_000_000)
         
-        isDataFetched = true
+        DispatchQueue.main.async {
+            self.isDataFetched = true
+        }
     }
 }

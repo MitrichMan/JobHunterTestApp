@@ -15,10 +15,10 @@ struct TabBarView: View {
     var body: some View {
         VStack {
             Rectangle()
-                .frame(height: 1.3)
-                .foregroundStyle(.gray)
+                .frame(height: 1)
+                .foregroundStyle(.gray1)
             
-            HStack {
+            HStack(/*spacing: 20*/) {
                 ForEach(viewModel.dataManager.tabBarTabs, id: \.self) { tab in
                     
                     Button
@@ -34,14 +34,15 @@ struct TabBarView: View {
                     VStack {
 // TODO: - make sticker logic
 //                        ZStack {
-                            viewModel.getImage(for: tab)
-                                .frame(width: 24, height: 24)
-                                .padding(.horizontal)
-                            
+                        viewModel.getImage(for: tab)
+                            .resizable()
+                            .frame(width: 26, height: 26)
+                            .padding(.horizontal)
+                        
 //                            ZStack {
 //                                Image(.notificationSticker)
 //                                    .foregroundStyle(.red)
-//                                
+//
 //                                Text("4")
 //                                    .font(.system(size: 8, weight: .bold))
 //                                    .foregroundStyle(.white)
@@ -50,8 +51,9 @@ struct TabBarView: View {
 //                        }
                         
                         Text(tab.rawValue)
-                            .font(.system(size: 11))
+                            .font(.system(size: 10))
                     }
+                    .padding(.horizontal, 8)
                     .foregroundStyle(
                         viewModel.getcolor(
                             if: tab,
@@ -63,7 +65,6 @@ struct TabBarView: View {
                 }
                 .disabled(!viewModel.dataManager.isLoggedIn)
             }
-            .padding()
         }
         .ignoresSafeArea()
     }

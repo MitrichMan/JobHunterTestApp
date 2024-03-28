@@ -11,9 +11,8 @@ struct SignInView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
-//    @State private var presented = false
-        
     @State var text = ""
+    
     var body: some View {
         ZStack {
             Color.black
@@ -23,33 +22,36 @@ struct SignInView: View {
                 VStack {
                     HStack {
                         Text("Вход в личный кабинет")
-                            .font(.system(size: 24, weight: .semibold))
+                            .font(.system(size: 21, weight: .semibold))
+                            .frame(height: 24, alignment: .leading)
                             .foregroundStyle(.white)
                         
                         Spacer()
                     }
-                    .padding()
                     
                     Spacer()
                     
                     ZStack {
                         Color.gray1
                         
-                        VStack {
+                        VStack(spacing: 0) {
                             HStack {
                                 Text("Поиск работы")
-                                    .font(.system(size: 19))
+                                    .font(.system(size: 16, weight: .medium))
                                     .foregroundStyle(.white)
                                 Spacer()
                             }
+                            .padding(.top, 24)
+                            .padding(.bottom, 16)
                             
                             ZStack {
                                 Color(.gray2)
                                     .frame(height: 40)
                                     .cornerRadius(8)
+                                    .shadow(color: .shadow, radius: 2, y:4)
                                 
                                 if text.count  < 1 {
-                                    HStack(spacing: 8) {
+                                    HStack {
                                         Image(.responsesDefault)
                                             .resizable()
                                             .frame(width: 24, height: 24)
@@ -61,38 +63,54 @@ struct SignInView: View {
                                         
                                         Spacer()
                                     }
+                                    .frame(height: 40)
                                     .padding(.horizontal, 8)
                                 }
                                 
                                 TextField("", text: $text)
+                                    .frame(height: 40)
                                     .foregroundStyle(.white)
                                     .padding(.horizontal, 8)
+                                
+                                if text.count > 0 {
+                                    HStack {
+                                        Spacer()
+                                        Button(
+                                            action: {
+                                                text = ""
+                                            },
+                                            label: {
+                                                Image(.bigCloseDefault)
+                                                    .foregroundColor(.gray5)
+                                            }
+                                        )
+                                        .padding(.horizontal, 8)
+                                    }
+                                    .shadow(color: .shadow, radius: 2, y:4)
+                                }
                             }
+
+                            .padding(.bottom, 16)
                             
                             HStack(spacing: 8) {
                                 Button {
                                     if !text.isEmpty {
-                                    // coordinator.push(.verification)
-//                                        presented.toggle()
                                         viewModel.continueButonTapped(with: text)
                                     }
                                 } label: {
                                     ZStack {
                                         if !text.isEmpty {
                                             Color.blue1
-                                                .cornerRadius(8)
-                                                .frame(height: 48)
-                                        } else { 
+
+                                        } else {
                                             Color.darkBlue
-                                                .cornerRadius(8)
-                                                .frame(height: 48)
                                         }
                                         
                                         HStack {
                                             Spacer()
                                             
                                             Text("Продолжить")
-                                                .font(.system(size: 16, weight: .semibold))
+                                                .font(.system(size: 14))
                                                 .foregroundStyle(
                                                     text.isEmpty ? .white : .gray4
                                                 )
@@ -100,7 +118,14 @@ struct SignInView: View {
                                             Spacer()
                                         }
                                     }
+                                    .frame(height: 40)
+                                    .cornerRadius(8)
+                                    .shadow(color: .shadow, radius: 2, y:4)
+                                    .overlay(RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.black, lineWidth: 1))
                                 }
+
+                                .frame(height: 40)
                                 .disabled(text.isEmpty)
                                 .sheet(
                                     isPresented: $viewModel.isVerificationCodeViewPresented
@@ -110,30 +135,39 @@ struct SignInView: View {
                                     )
                                 }
                                 
-                                Button {} label: {
-                                    Text("Войти с паролем")
-                                }
+                                Spacer()
                                 
+                                Button {} label: {
+                                    
+                                    Text("Войти с паролем")
+                                        .font(.system(size: 14))
+                                        .stroke(color: .black, width: 0.5)
+                                        .shadow(color: .shadow, radius: 2, y:4)
+                                }
                             }
+                            .padding(.bottom, 24)
+                            
                         }
-                        .padding()
+                        .padding(.horizontal)
                         .layoutPriority(1)
                     }
-                    .cornerRadius(12)
-                    .padding()
+                    .cornerRadius(8)
+                    .padding(.vertical, 16)
                     
-                    ZStack(alignment: .leading) {
+                    ZStack {
                         Color.gray1
                         
-                        VStack(alignment: .leading) {
-                            Text("Поиск сотрудников")
-                                .font(.system(size: 18, weight: .semibold))
-                                .foregroundStyle(.white)
+                        VStack(alignment: .leading, spacing: 0) {
+                                Text("Поиск сотрудников")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundStyle(.white)
+                                .padding(.top, 24)
                             
                             
-                            Text("Размещение вакансий и доступ к базе резюме")
-                                .font(.system(size: 14))
-                                .foregroundStyle(.white)
+                                Text("Размещение вакансий и доступ к базе резюме")
+                                    .font(.system(size: 14))
+                                    .foregroundStyle(.white)
+                                    .padding(.top, 8)
                             
                             Button {} label: {
                                 ZStack {
@@ -144,16 +178,24 @@ struct SignInView: View {
                                 }
                                 .frame(height: 35)
                             }
+                            .padding(.top, 16)
+                            .padding(.bottom, 24)
                             
                         }
-                        .padding()
+                        .padding(.horizontal)
                         .layoutPriority(1)
                     }
-                    .cornerRadius(12)
-                    .padding()
+                    .cornerRadius(8)
+                    .padding(.vertical, 16)
                     
                     Spacer()
+                    
+                    Text("Вход в личный кабинет")
+                        .font(.system(size: 21, weight: .semibold))
+                        .frame(height: 24, alignment: .leading)
+                        .foregroundStyle(.black)
                 }
+                .padding()
             } else {
                 MainView()
             }
@@ -162,6 +204,51 @@ struct SignInView: View {
 }
 
 #Preview {
-    //    SignInView()
-    CoordinatorView()
+    SignInView()
+    //    CoordinatorView()
+}
+
+extension View {
+    func stroke(color: Color, width: CGFloat = 1) -> some View {
+        modifier(StrokeModifier(strokeSize: width, strokeColor: color))
+    }
+}
+
+struct StrokeModifier: ViewModifier {
+    private let id = UUID()
+    var strokeSize: CGFloat = 0.5
+    var strokeColor: Color = .blue
+
+    func body(content: Content) -> some View {
+        if strokeSize > 0 {
+            appliedStrokeBackground(content: content)
+        } else {
+            content
+        }
+    }
+
+    private func appliedStrokeBackground(content: Content) -> some View {
+        content
+            .padding(strokeSize*2)
+            .background(
+                Rectangle()
+                    .foregroundColor(strokeColor)
+                    .mask(alignment: .center) {
+                        mask(content: content)
+                    }
+            )
+    }
+
+    func mask(content: Content) -> some View {
+        Canvas { context, size in
+            context.addFilter(.alphaThreshold(min: 0.01))
+            if let resolvedView = context.resolveSymbol(id: id) {
+                context.draw(resolvedView, at: .init(x: size.width/2, y: size.height/2))
+            }
+        } symbols: {
+            content
+                .tag(id)
+                .blur(radius: strokeSize)
+        }
+    }
 }

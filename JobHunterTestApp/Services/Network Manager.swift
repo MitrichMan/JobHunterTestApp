@@ -33,5 +33,6 @@ enum NetworkError: Error {
 }
 
 enum API: String {
-    case mainViewData = "https://run.mocky.io/v3/ed41d10e-0c1f-4439-94fa-9702c9d95c14"
+    case mainViewDataOld = "https://run.mocky.io/v3/ed41d10e-0c1f-4439-94fa-9702c9d95c14"
+    case mainViewData = "https://docs.google.com/document/d/1pPHmvMqAX7MSun2xkJV4znBzLx1MfofffoZftTFLnzI/edit?usp=sharing"
 }

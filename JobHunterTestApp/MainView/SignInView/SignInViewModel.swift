@@ -11,6 +11,8 @@ class SignInViewModel: ObservableObject {
     @Published var dataManager = DataManager.shared
     
     @Published var isVerificationCodeViewPresented = false
+    
+    @Published var isErrorModePresented = false
 
     func validateEmail(text: String) -> Bool {
         if text.count > 100 {
