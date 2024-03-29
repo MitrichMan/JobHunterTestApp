@@ -11,7 +11,11 @@ struct SignInView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
-    @State var text = ""
+    @State var text = "" {
+        didSet {
+            
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -67,41 +71,62 @@ struct SignInView: View {
                                     .padding(.horizontal, 8)
                                 }
                                 
-                                TextField("", text: $text)
-                                    .frame(height: 40)
-                                    .foregroundStyle(.white)
-                                    .padding(.horizontal, 8)
-                                
-                                if text.count > 0 {
-                                    HStack {
-                                        Spacer()
-                                        Button(
-                                            action: {
-                                                text = ""
-                                            },
-                                            label: {
-                                                Image(.bigCloseDefault)
-                                                    .foregroundColor(.gray5)
-                                            }
-                                        )
-                                        .padding(.horizontal, 8)
+                                HStack {
+                                    TextField("", text: $text)
+                                        .frame(height: 40)
+                                        .foregroundStyle(.white)
+                                    
+                                    if text.count > 0 {
+                                        Button {
+                                            text = ""
+                                        } label: {
+                                            Image(.bigCloseDefault)
+                                                .foregroundColor(.gray5)
+                                        }
                                     }
-                                    .shadow(color: .shadow, radius: 2, y:4)
+                                }
+                                .padding(.horizontal, 8)
+                                .shadow(color: .shadow, radius: 2, y:4)
+                            }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(
+                                        Color.red1,
+                                        lineWidth:                                 viewModel.isErrorModePresented ? 1 : 0
+                                    )
+                            )
+                            .onChange(of: text, {
+                                if viewModel.isErrorModePresented {
+                                    viewModel.isErrorModePresented = false
+                                }
+                            })
+                            .padding(.bottom, 16)
+                            
+                            if viewModel.isErrorModePresented {
+                                HStack {
+                                    Text("Вы ввели неверный e-mail")
+                                        .padding(.bottom, 16)
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(.red1)
+                                    
+                                    Spacer()
                                 }
                             }
-
-                            .padding(.bottom, 16)
+                            
                             
                             HStack(spacing: 8) {
                                 Button {
                                     if !text.isEmpty {
+                                        if !viewModel.validateEmail(text: text) {
+                                            viewModel.isErrorModePresented = true
+                                        }
                                         viewModel.continueButonTapped(with: text)
                                     }
                                 } label: {
                                     ZStack {
                                         if !text.isEmpty {
                                             Color.blue1
-
+                                            
                                         } else {
                                             Color.darkBlue
                                         }
@@ -112,7 +137,7 @@ struct SignInView: View {
                                             Text("Продолжить")
                                                 .font(.system(size: 14))
                                                 .foregroundStyle(
-                                                    text.isEmpty ? .white : .gray4
+                                                    text.isEmpty ? .gray4 : .white
                                                 )
                                             
                                             Spacer()
@@ -124,21 +149,16 @@ struct SignInView: View {
                                     .overlay(RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color.black, lineWidth: 1))
                                 }
-
-                                .frame(height: 40)
                                 .disabled(text.isEmpty)
                                 .sheet(
                                     isPresented: $viewModel.isVerificationCodeViewPresented
                                 ) {
-                                    VerificationCodeView(
-                                        presented: $viewModel.isVerificationCodeViewPresented
-                                    )
+                                    VerificationCodeView(enteredEmail: $text)
                                 }
                                 
                                 Spacer()
                                 
                                 Button {} label: {
-                                    
                                     Text("Войти с паролем")
                                         .font(.system(size: 14))
                                         .stroke(color: .black, width: 0.5)
@@ -158,16 +178,16 @@ struct SignInView: View {
                         Color.gray1
                         
                         VStack(alignment: .leading, spacing: 0) {
-                                Text("Поиск сотрудников")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundStyle(.white)
+                            Text("Поиск сотрудников")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundStyle(.white)
                                 .padding(.top, 24)
                             
                             
-                                Text("Размещение вакансий и доступ к базе резюме")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(.white)
-                                    .padding(.top, 8)
+                            Text("Размещение вакансий и доступ к базе резюме")
+                                .font(.system(size: 14))
+                                .foregroundStyle(.white)
+                                .padding(.top, 8)
                             
                             Button {} label: {
                                 ZStack {
@@ -205,7 +225,6 @@ struct SignInView: View {
 
 #Preview {
     SignInView()
-    //    CoordinatorView()
 }
 
 extension View {
@@ -218,7 +237,7 @@ struct StrokeModifier: ViewModifier {
     private let id = UUID()
     var strokeSize: CGFloat = 0.5
     var strokeColor: Color = .blue
-
+    
     func body(content: Content) -> some View {
         if strokeSize > 0 {
             appliedStrokeBackground(content: content)
@@ -226,7 +245,7 @@ struct StrokeModifier: ViewModifier {
             content
         }
     }
-
+    
     private func appliedStrokeBackground(content: Content) -> some View {
         content
             .padding(strokeSize*2)
@@ -238,7 +257,7 @@ struct StrokeModifier: ViewModifier {
                     }
             )
     }
-
+    
     func mask(content: Content) -> some View {
         Canvas { context, size in
             context.addFilter(.alphaThreshold(min: 0.01))

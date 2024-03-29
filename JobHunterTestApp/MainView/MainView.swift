@@ -11,7 +11,7 @@ struct MainView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = MainViewModel()
     
-    @State var text = ""
+    @State var searchPromptText = ""
     
     var body: some View {
         ZStack {
@@ -21,10 +21,39 @@ struct MainView: View {
                 ScrollView {
                     VStack {
                         HStack {
-                            TextField("Placeholder", text: $text)
-                                .frame(height: 35)
-                                .background(.gray)
-                                .cornerRadius(8)
+                            ZStack {
+                                Color(.gray2)
+                                    .frame(height: 40)
+                                    .cornerRadius(8)
+                                    .shadow(color: .shadow, radius: 2, y:4)
+                                
+                                HStack {
+                                    Image(.searchDefault)
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundStyle(.gray4)
+                                    
+                                    if searchPromptText.count  < 1 {
+                                        Text("Должность, ключевые слова")
+                                            .font(.system(size: 14))
+                                            .foregroundStyle(.gray4)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                }
+                                .frame(height: 40)
+                                .padding(.horizontal, 8)
+                                
+                                HStack {
+                                    Spacer(minLength: 32)
+                                    TextField("", text: $searchPromptText)
+                                        .frame(height: 40)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.horizontal, 8)
+                                .shadow(color: .shadow, radius: 2, y:4)
+                            }
                             
                             Spacer(minLength: 50)
                         }
@@ -33,10 +62,33 @@ struct MainView: View {
                         
                         ScrollView(.horizontal) {
                             HStack {
-                                ForEach(0...2, id: \.self) { index in
-                                    Color.gray
-                                        .frame(width: 130, height: 120)
-                                        .cornerRadius(8)
+                                ForEach(0...viewModel.offers.count - 1, id: \.self) { index in
+                                    ZStack {
+                                        Color.gray
+                                        
+                                        VStack {
+                                            HStack {
+                                                ZStack {
+                                                    Circle()
+                                                        .frame(width: 32)
+                                                        .foregroundStyle(.darkBlue)
+                                                    Image(.vacanciesDefault)
+                                                        .foregroundStyle(.blue1)
+                                                }
+                                                
+                                                Spacer()
+                                            }
+                                            Text(viewModel.offers[index].title)
+                                                .font(.system(size: 14, weight: .medium))
+                                                .multilineTextAlignment(.leading)
+                                                .foregroundStyle(.white)
+                                            
+                                            Spacer()
+                                        }
+                                        .padding()
+                                    }
+                                    .frame(width: 160, height: 140)
+                                    .cornerRadius(8)
                                 }
                             }
                             .padding(.horizontal)
@@ -87,9 +139,9 @@ struct MainView: View {
         }
         .navigationBarBackButtonHidden()
         
-// TODO: - fetch real data mhen API is fixed
+        // TODO: - fetch real data mhen API is fixed
         .task {
-//            await viewModel.fetchMainViewData()
+            //            await viewModel.fetchMainViewData()
             await viewModel.fetchMockData()
         }
     }

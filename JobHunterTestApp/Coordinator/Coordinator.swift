@@ -5,11 +5,13 @@
 //  Created by Dmitrii Melnikov on 20.03.2024.
 //
 
+import Foundation
 import SwiftUI
 
 @MainActor class Coordinator: ObservableObject {
     @Published var dataManager = DataManager.shared
     @Published var path = NavigationPath()
+    
     
     func push(_ page: Page) {
         path.append(page)

@@ -14,7 +14,14 @@ class MainViewModel: ObservableObject {
     
     var isLoggedIn = false
     
-    var mainViewData = MainViewDataResponse(offers: [], vacancies: [])
+    var mainViewData = MainViewDataResponse(offers: [], vacancies: []) {
+        didSet {
+            offers = mainViewData.offers
+            vacancies = mainViewData.vacancies
+        }
+    }
+    var offers: [Offer] = []
+    var vacancies: [Vacancy] = []
     
     @MainActor func fetchMainViewData() async {
         do {
@@ -33,5 +40,9 @@ class MainViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.isDataFetched = true
         }
+    }
+    
+    func setAvatarForOfferCell() {
+//        switch
     }
 }

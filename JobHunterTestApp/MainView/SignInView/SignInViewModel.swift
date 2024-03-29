@@ -6,14 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 class SignInViewModel: ObservableObject {
     @Published var dataManager = DataManager.shared
     
-    @Published var isVerificationCodeViewPresented = false
-    
     @Published var isErrorModePresented = false
-
+    @Published var isVerificationCodeViewPresented = false
+            
     func validateEmail(text: String) -> Bool {
         if text.count > 100 {
             return false
@@ -27,4 +27,24 @@ class SignInViewModel: ObservableObject {
     func continueButonTapped(with text: String) {
         isVerificationCodeViewPresented = validateEmail(text: text)
     }
+    
+    func setUpFocusableField(index: Int) -> FocusableField {
+        switch index {
+        case 0:
+                .firstDigit
+        case 1:
+                .secondDigit
+        case 2:
+                .thirdDigit
+        default:
+                .fourthDigit
+        }
+    }
+}
+
+enum FocusableField: CaseIterable, Hashable {
+    case firstDigit
+    case secondDigit
+    case thirdDigit
+    case fourthDigit
 }
