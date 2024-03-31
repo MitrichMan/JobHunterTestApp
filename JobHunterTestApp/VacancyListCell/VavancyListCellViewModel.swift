@@ -8,61 +8,50 @@
 import Foundation
 
 class VavancyListCellViewModel: ObservableObject {
-    var vacancy: Vacancy = Vacancy(
-        id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
-        lookingNumber: 2,
-        title: "UI/UX дизайнер",
+    
+    @Published var vacancy: Vacancy = Vacancy(
+        id: "",
+        lookingNumber: 0,
+        title: "",
         address: Address(
-            town: "Минск",
-            street: "улица Бирюзова",
-            house: "4/5"
+            town: "",
+            street: "",
+            house: ""
         ),
-        company: "Мобирикс",
+        company: "",
         experience: Experience(
-            previewText: "Опыт от 1 до 3 лет",
-            text: "1–3 года"
+            previewText: "",
+            text: ""
         ),
-        publishedDate: "2024-02-20",
+        publishedDate: "",
         isFavorite: false,
         salary: Salary(
-            full: "Уровень дохода не указан",
+            full: "",
             short: nil
         ),
         schedules: [
-            "полная занятость",
-            "полный день"
+            "",
+            ""
         ],
-        appliedNumber: 147,
-        description: "Мы ищем специалиста на позицию UX/UI Designer, который вместе с коллегами будет заниматься проектированием пользовательских интерфейсов внутренних и внешних продуктов компании.",
-        responsibilities: "- проектирование пользовательских сценариев и создание прототипов;\n- разработка интерфейсов для продуктов компании (Web+App);\n- работа над созданием и улучшением Дизайн-системы;\n- взаимодействие с командами frontend-разработки;\n- контроль качества внедрения дизайна;\n- ситуативно: создание презентаций и других материалов на основе фирменного стиля компании",
-        questions: [
-            "Где располагается место работы?",
-            "Какой график работы?",
-            "Вакансия открыта?",
-            "Какая оплата труда?"
-        ]
-    ) {
-        didSet {
-            
-        }
+        appliedNumber: 0,
+        description: "",
+        responsibilities: "",
+        questions: []
+    ) 
+    
+    func toggleFavouriteStatus() {
+        vacancy.isFavorite.toggle()
     }
     
-    func getDateFrom(string: String) -> Date {
-        let dateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .full
-            return formatter
-        }()
-        return dateFormatter.date(from: vacancy.publishedDate) ?? Date.now
-    }
-    
-    func publishedDateFormatter() {
-//        let dateFormatter: DateFormatter = {
-//            let formatter = DateFormatter()
-//            formatter.dateStyle = .medium
-//            return formatter
-//        }()
+    func getFormattedDate(from string: String) -> String {
+        let dateFormatter = DateFormatter()
         
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
         
+        guard let publishedDate = dateFormatter.date(from: string) else { return dateFormatter.string(from:Date.now) }
+        dateFormatter.dateFormat = "dd MMMM"
+        
+        return dateFormatter.string(from: publishedDate)
     }
 }

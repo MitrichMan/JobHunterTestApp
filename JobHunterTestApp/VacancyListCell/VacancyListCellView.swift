@@ -11,59 +11,72 @@ struct VacancyListCellView: View {
     @StateObject private var viewModel = VavancyListCellViewModel()
     
     var vacancy: Vacancy
+    
     var body: some View {
         ZStack {
-            Color.gray
+            Color.gray1
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text("Сейчас просматривает \(vacancy.lookingNumber?.formatted() ?? "0") человек")
-                        .font(.system(size: 18))
-                        .foregroundStyle(.green)
+                    Text("Сейчас просматривает \(viewModel.vacancy.lookingNumber?.formatted() ?? "0") человек")
+                        .font(.system(size: 14))
+                        .foregroundStyle(.green1)
                     
                     Spacer()
                     
-                    Button {} label: {
-                        Image(.searchDefault)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundStyle(.blue)
+                    Button {
+                        viewModel.vacancy.isFavorite.toggle()
+                    } label: {
+                        if viewModel.vacancy.isFavorite {
+                            Image(.heartFill)
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.blue1)
+                        } else {
+                            Image(.heartDefault)
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.gray4)
+                        }
                     }
                 }
                 
-                Text(vacancy.title)
-                    .font(.system(size: 20, weight: .semibold))
+                Text(viewModel.vacancy.title)
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(.white)
                 
-                Text(vacancy.address.town)
-                    .font(.system(size: 18))
+                Text(viewModel.vacancy.address.town)
+                    .font(.system(size: 14))
                     .foregroundStyle(.white)
                 
                 HStack {
-                    Text(vacancy.company)
-                        .font(.system(size: 18))
+                    Text(viewModel.vacancy.company)
+                        .font(.system(size: 14))
                         .foregroundStyle(.white)
                     
-                    Image(.searchDefault)
+                    Image(.checkMarkCircleDefault)
                         .resizable()
                         .frame(width: 16, height: 16)
+                        .foregroundColor(.gray3)
                     
                     Spacer()
                 }
                 
                 HStack {
-                    Image(.searchDefault)
+                    Image(.experienceDefault)
                         .resizable()
                         .frame(width: 16, height: 16)
+                        .foregroundStyle(.white)
                     
-                    Text(vacancy.experience.previewText)
-                        .font(.system(size: 18))
+                    Text(viewModel.vacancy.experience.previewText)
+                        .font(.system(size: 14))
                         .foregroundStyle(.white)
                     
                     Spacer()
                 }
-                Text(viewModel.getDateFrom(string: vacancy.publishedDate).formatted(.dateTime))
-                    .foregroundStyle(.yellow)
+                
+                Text("Опубликовано \(viewModel.getFormattedDate(from: viewModel.vacancy.publishedDate))")
+                    .foregroundStyle(.gray3)
                 
                 
                 Button {} label: {

@@ -30,8 +30,8 @@ struct Vacancy: Decodable {
     let address: Address
     let company: String
     let experience: Experience
-    var publishedDate: String
-    let isFavorite: Bool
+    let publishedDate: String
+    var isFavorite: Bool
     let salary: Salary
     let schedules: [String]
     let appliedNumber: Int?
