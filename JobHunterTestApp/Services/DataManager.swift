@@ -32,7 +32,7 @@ class DataManager: ObservableObject {
             ),
             Offer(
                 id: "temporary_job",
-                title: "  Временная работа или подработка",
+                title: "Временная работа или подработка",
                 link: "https://hh.ru/",
                 button: nil
             ),

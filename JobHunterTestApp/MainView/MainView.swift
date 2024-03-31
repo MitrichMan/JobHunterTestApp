@@ -62,38 +62,52 @@ struct MainView: View {
                         
                         ScrollView(.horizontal) {
                             HStack {
-                                ForEach(0...viewModel.offers.count - 1, id: \.self) { index in
+                                ForEach(0...(viewModel.offers.count - 1), id: \.self) { index in
                                     ZStack {
-                                        Color.gray
+                                        Color.gray1
                                         
-                                        VStack {
-                                            HStack {
+                                        VStack(alignment: .leading) {
                                                 ZStack {
                                                     Circle()
                                                         .frame(width: 32)
-                                                        .foregroundStyle(.darkBlue)
-                                                    Image(.vacanciesDefault)
-                                                        .foregroundStyle(.blue1)
+                                                        .foregroundColor(
+                                                            viewModel.getCircleColor(with: index).first
+                                                        )
+                                                    
+                                                    viewModel.setAvatarForOfferCell(with: index)
+                                                        .foregroundColor(
+                                                            viewModel.getCircleColor(with: index).last
+                                                        )
                                                 }
-                                                
-                                                Spacer()
-                                            }
+                                                .padding(.bottom)
+                                            
+                                            
                                             Text(viewModel.offers[index].title)
                                                 .font(.system(size: 14, weight: .medium))
                                                 .multilineTextAlignment(.leading)
                                                 .foregroundStyle(.white)
+                                                
                                             
+                                            if viewModel.offers[index].id == "level_up_resume" {
+                                                Button {} label: {
+                                                    Text("Поднять")
+                                                        .font(.system(size: 14))
+                                                        .foregroundStyle(.green1)
+                                                }
+                                            } else {
+                                                Spacer()
+                                            }
                                             Spacer()
                                         }
                                         .padding()
                                     }
-                                    .frame(width: 160, height: 140)
+                                    .frame(width: 150, height: 140)
                                     .cornerRadius(8)
                                 }
                             }
-                            .padding(.horizontal)
-                            .padding(.vertical, 8)
                         }
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                         
                         HStack {
                             Text("Вакансии для вас")
