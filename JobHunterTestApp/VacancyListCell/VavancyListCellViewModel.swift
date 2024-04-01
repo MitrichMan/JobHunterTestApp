@@ -9,7 +9,7 @@ import Foundation
 
 class VavancyListCellViewModel: ObservableObject {
     
-    @Published var vacancy: Vacancy = Vacancy(
+    @Published var vacancy = Vacancy(
         id: "",
         lookingNumber: 0,
         title: "",
@@ -37,7 +37,7 @@ class VavancyListCellViewModel: ObservableObject {
         description: "",
         responsibilities: "",
         questions: []
-    ) 
+    )
     
     func toggleFavouriteStatus() {
         vacancy.isFavorite.toggle()
@@ -50,7 +50,7 @@ class VavancyListCellViewModel: ObservableObject {
         dateFormatter.locale = Locale(identifier: "ru_RU")
         
         guard let publishedDate = dateFormatter.date(from: string) else { return dateFormatter.string(from:Date.now) }
-        dateFormatter.dateFormat = "dd MMMM"
+        dateFormatter.dateFormat = "d MMMM"
         
         return dateFormatter.string(from: publishedDate)
     }

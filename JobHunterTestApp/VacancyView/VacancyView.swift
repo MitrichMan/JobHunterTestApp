@@ -8,49 +8,61 @@
 import SwiftUI
 
 struct VacancyView: View {
-//    @Binding var vacancy: Vacancy
-
+    @EnvironmentObject private var coordinator: Coordinator
+    
+    var vacancy: Vacancy
+    
+//    var isFavourite = false
+    
     var body: some View {
         ZStack {
             Color.black
                 .ignoresSafeArea()
             
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        Image(systemName: "arrow.backward")
+            VStack(alignment: .leading) {
+                HStack {
+                    Button {
+                        coordinator.pop()
+                    } label: {
+                        Image(.leftArrowDefault)
                             .resizable()
                             .frame(width: 24, height: 24)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                        
-                        Spacer()
-                        
-                        Image(systemName: "eye")
-                            .resizable()
-                            .frame(width: 28, height: 24)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                        
-                        Image(systemName: "slider.horizontal.3")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                        
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.blue)
+                            .foregroundStyle(.gray4)
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
+                    
+                    Spacer()
+                    
+                    Image(.eyeActive)
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.white)
+                    
+                    Image(.shareDefault)
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(.white)
+                    
+                    if  vacancy.isFavorite {
+                        Image(.heartFill)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.white)
+                    } else {
+                        Image(.heartDefault)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.white)
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                
+                ScrollView {
                     
                     HStack {
                         VStack(alignment: .leading) {
                             Text("UI/UX Designer")
-                                .font(.system(size: 26, weight: .semibold))
+                                .font(.system(size: 22, weight: .semibold))
                                 .foregroundStyle(.white)
                             
                             Text("Уровень дохода не указан")
@@ -179,45 +191,45 @@ struct VacancyView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
 #Preview {
-    VacancyView()
-//(vacancy: .constant(
-//        Vacancy(
-//        id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
-//        lookingNumber: 2,
-//        title: "UI/UX дизайнер",
-//        address: Address(
-//            town: "Минск",
-//            street: "улица Бирюзова",
-//            house: "4/5"
-//        ),
-//        company: "Мобирикс",
-//        experience: Experience(
-//            previewText: "Опыт от 1 до 3 лет",
-//            text: "1–3 года"
-//        ),
-//        publishedDate: "2024-02-20",
-//        isFavorite: false,
-//        salary: Salary(
-//            full: "Уровень дохода не указан",
-//            short: nil
-//        ),
-//        schedules: [
-//            "полная занятость",
-//            "полный день"
-//        ],
-//        appliedNumber: 147,
-//        description: "Мы ищем специалиста на позицию UX/UI Designer, который вместе с коллегами будет заниматься проектированием пользовательских интерфейсов внутренних и внешних продуктов компании.",
-//        responsibilities: "- проектирование пользовательских сценариев и создание прототипов;\n- разработка интерфейсов для продуктов компании (Web+App);\n- работа над созданием и улучшением Дизайн-системы;\n- взаимодействие с командами frontend-разработки;\n- контроль качества внедрения дизайна;\n- ситуативно: создание презентаций и других материалов на основе фирменного стиля компании",
-//        questions: [
-//            "Где располагается место работы?",
-//            "Какой график работы?",
-//            "Вакансия открыта?",
-//            "Какая оплата труда?"
-//        ]
-//    )
-//    ))
+    VacancyView(vacancy:
+        Vacancy(
+        id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
+        lookingNumber: 2,
+        title: "UI/UX дизайнер",
+        address: Address(
+            town: "Минск",
+            street: "улица Бирюзова",
+            house: "4/5"
+        ),
+        company: "Мобирикс",
+        experience: Experience(
+            previewText: "Опыт от 1 до 3 лет",
+            text: "1–3 года"
+        ),
+        publishedDate: "2024-02-20",
+        isFavorite: false,
+        salary: Salary(
+            full: "Уровень дохода не указан",
+            short: nil
+        ),
+        schedules: [
+            "полная занятость",
+            "полный день"
+        ],
+        appliedNumber: 147,
+        description: "Мы ищем специалиста на позицию UX/UI Designer, который вместе с коллегами будет заниматься проектированием пользовательских интерфейсов внутренних и внешних продуктов компании.",
+        responsibilities: "- проектирование пользовательских сценариев и создание прототипов;\n- разработка интерфейсов для продуктов компании (Web+App);\n- работа над созданием и улучшением Дизайн-системы;\n- взаимодействие с командами frontend-разработки;\n- контроль качества внедрения дизайна;\n- ситуативно: создание презентаций и других материалов на основе фирменного стиля компании",
+        questions: [
+            "Где располагается место работы?",
+            "Какой график работы?",
+            "Вакансия открыта?",
+            "Какая оплата труда?"
+        ]
+    )
+    )
 }

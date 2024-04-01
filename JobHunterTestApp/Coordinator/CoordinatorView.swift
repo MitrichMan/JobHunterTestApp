@@ -17,7 +17,7 @@ struct CoordinatorView: View {
             
             VStack {
                 NavigationStack(path: $coordinator.path) {
-                    coordinator.build(page: DataManager.shared.presentedTab)
+                    coordinator.build(page: DataManager.shared.getStartPage())
                         .navigationDestination(for: Page.self) { page in
                             coordinator.build(page: page)
                         }
@@ -27,6 +27,13 @@ struct CoordinatorView: View {
                 
                 TabBarView()
                     .environmentObject(coordinator)
+            }
+        }
+        // TODO: - fetch real data mhen API is fixed
+        .task {
+            if !DataManager.shared.isDataFetched {
+//            await DataManager.shared.fetchMainViewData()
+                await DataManager.shared.fetchMockData()
             }
         }
     }

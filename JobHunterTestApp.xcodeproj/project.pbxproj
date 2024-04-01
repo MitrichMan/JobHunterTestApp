@@ -92,11 +92,11 @@
 			isa = PBXGroup;
 			children = (
 				4D0BD3E02BAB0BC70022588F /* JobHunterTestAppApp.swift */,
+				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
 				4D0BD4112BAC62C00022588F /* MainView */,
 				4D0BD3F42BAB0F180022588F /* TabBar */,
 				4D62E7772BAF63240017241C /* VacancyListCell */,
 				4DA4904F2BB6EB5200E3D294 /* VacancyView */,
-				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
 				4D0BD40E2BAB69760022588F /* Services */,
 				4D0BD4122BADA5930022588F /* Models */,
 				4D0BD3E42BAB0BC90022588F /* Assets.xcassets */,

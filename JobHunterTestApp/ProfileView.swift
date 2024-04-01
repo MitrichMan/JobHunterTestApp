@@ -21,7 +21,7 @@ struct ProfileView: View {
                 
                 Button {
                     DataManager.shared.isLoggedIn = false
-                    DataManager.shared.presentedTab = .signIn
+                    DataManager.shared.presentedPage = .signIn
                     coordinator.popToRoot()
                 } label: {
                     HStack {

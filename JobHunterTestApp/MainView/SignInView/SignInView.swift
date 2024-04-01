@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignInView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+//    @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
     @State var text = "" {
@@ -217,7 +217,7 @@ struct SignInView: View {
                 }
                 .padding()
             } else {
-                MainView()
+                MainView(mainViewDataResponse: DataManager.shared.mainViewData)
             }
         }
     }

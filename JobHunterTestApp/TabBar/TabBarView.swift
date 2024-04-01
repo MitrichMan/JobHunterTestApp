@@ -18,15 +18,15 @@ struct TabBarView: View {
                 .frame(height: 1)
                 .foregroundStyle(.gray1)
             
-            HStack(/*spacing: 20*/) {
-                ForEach(viewModel.dataManager.tabBarTabs, id: \.self) { tab in
+            HStack() {
+                ForEach(DataManager.shared.tabBarTabs, id: \.self) { tab in
                     
                     Button
                     {
                         
                         if viewModel.dataManager.isLoggedIn {
-                            viewModel.dataManager.presentedTab = tab
-                            coordinator.push(viewModel.dataManager.presentedTab)
+                            viewModel.dataManager.presentedPage = viewModel.getPage(from: tab)
+                            coordinator.push(viewModel.dataManager.presentedPage)
                             
                         } else { return }
                     }
@@ -50,18 +50,18 @@ struct TabBarView: View {
 //                            }
 //                        }
                         
-                        Text(tab.rawValue)
+                        Text(viewModel.getTabName(for: tab))
                             .font(.system(size: 10))
                     }
                     .padding(.horizontal, 8)
                     .foregroundStyle(
                         viewModel.getcolor(
                             if: tab,
-                            matches: viewModel.dataManager.presentedTab
+                            matches: viewModel.getTab(from: viewModel.dataManager.presentedPage)
                         )
                     )
                 }
-                .disabled(viewModel.dataManager.presentedTab == tab ? true : false)
+                .disabled(viewModel.getTab(from: viewModel.dataManager.presentedPage) == tab ? true : false)
                 }
                 .disabled(!viewModel.dataManager.isLoggedIn)
             }

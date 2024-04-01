@@ -10,14 +10,17 @@ import SwiftUI
 struct MainView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = MainViewModel()
+    @StateObject var dataManager = DataManager.shared
     
     @State var searchPromptText = ""
     
+    var mainViewDataResponse: MainViewDataResponse
+
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             
-            if viewModel.isDataFetched {
+            if dataManager.isDataFetched {
                 ScrollView {
                     VStack {
                         HStack {
@@ -25,7 +28,7 @@ struct MainView: View {
                                 Color(.gray2)
                                     .frame(height: 40)
                                     .cornerRadius(8)
-                                    .shadow(color: .shadow, radius: 2, y:4)
+                                    .shadow(color: .shadow, radius: 2, y: 4)
                                 
                                 HStack {
                                     Image(.searchDefault)
@@ -122,17 +125,17 @@ struct MainView: View {
                         
                         ForEach(0...2, id: \.self) { index in
                             VacancyListCellView(
-                                vacancy: viewModel.mainViewData.vacancies[index]
+                                vacancy: viewModel.vacancies[index]
                             )
                             .onTapGesture(perform: {
-                                coordinator.push(.vacancy)
+                                coordinator.push(.vacancy(viewModel.vacancies[index]))
                             })
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                         
                         Button {
-                            coordinator.push(.vacancyList)
+                            coordinator.push(.vacancyList(viewModel.vacancies))
                         } label: {
                             HStack {
                                 Spacer()
@@ -152,15 +155,9 @@ struct MainView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        
-        // TODO: - fetch real data mhen API is fixed
-        .task {
-            //            await viewModel.fetchMainViewData()
-            await viewModel.fetchMockData()
-        }
     }
 }
 
 #Preview {
-    MainView()
+    MainView(mainViewDataResponse: DataManager.shared.mockMainViewDataResponse)
 }

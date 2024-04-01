@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FavouritesView: View {
     @EnvironmentObject private var coordinator: Coordinator
+    var favourites: [Vacancy]
 
     var body: some View {
         ZStack {
@@ -18,9 +19,13 @@ struct FavouritesView: View {
                 .font(.system(size: 40))
                 .foregroundStyle(.white)
         }
-        .navigationBarBackButtonHidden()    }
+        .onAppear(perform: {
+            print(favourites.count.formatted())
+        })
+        .navigationBarBackButtonHidden()
+    }
 }
 
 #Preview {
-    FavouritesView()
+    FavouritesView(favourites: [])
 }

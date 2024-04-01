@@ -13,7 +13,7 @@ class TabBarViewModel: ObservableObject {
     
     @Published var foregroundColor = Color.gray
     
-    func getcolor(if tab: Page, matches selectedTab: Page) -> Color {
+    func getcolor(if tab: TabBarTab, matches selectedTab: TabBarTab) -> Color {
         if tab == selectedTab {
             return Color.blue
         } else {
@@ -21,7 +21,7 @@ class TabBarViewModel: ObservableObject {
         }
     }
     
-    func getImage(for tab: Page) -> Image {
+    func getImage(for tab: TabBarTab) -> Image {
         switch tab {
         case .main:
             Image(.searchDefault)
@@ -33,8 +33,63 @@ class TabBarViewModel: ObservableObject {
             Image(.messagesDefault)
         case .profile:
             Image(.profileDefault)
-        default :
-            Image(systemName: "x.circle")
+        case .signIn:
+            Image(.bigCloseDefault)
         }
+    }
+    
+    func getTabName(for page: TabBarTab) -> String{
+        switch page {
+        case .main:
+            "Поиск"
+        case .favourites:
+            "Избранное"
+        case .responses:
+            "Отклики"
+        case .messages:
+            "Сообщения"
+        case .profile:
+            "Профиль"
+        case .signIn:
+            ""
+        }
+    }
+    
+    func getTab(from page: Page) -> TabBarTab {
+        switch page {
+        case .main:
+                .main
+        case .favourites:
+                .favourites
+        case .responses:
+                .responses
+        case .messages:
+                .messages
+        case .profile:
+                .profile
+        default:
+                .signIn
+        }
+    }
+        
+    func getPage(from tab: TabBarTab) -> Page {
+        switch tab {
+        case .main:
+                .main(dataManager.mainViewData)
+        case .favourites:
+                .favourites(getFavourite(from: dataManager.mainViewData.vacancies))
+        case .responses:
+                .responses
+        case .messages:
+                .messages
+        case .profile:
+                .profile
+        case .signIn:
+                .signIn
+        }
+    }
+    
+    func getFavourite(from vacancies: [Vacancy]) -> [Vacancy] {
+        vacancies.filter { $0.isFavorite }
     }
 }

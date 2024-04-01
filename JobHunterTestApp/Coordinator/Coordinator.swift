@@ -5,7 +5,6 @@
 //  Created by Dmitrii Melnikov on 20.03.2024.
 //
 
-import Foundation
 import SwiftUI
 
 @MainActor class Coordinator: ObservableObject {
@@ -29,31 +28,20 @@ import SwiftUI
         switch page {
         case .signIn:
             SignInView()
-        case .main:
-            MainView()
-        case .favourites:
-            FavouritesView()
+        case let .main(mainViewDataResponse):
+            MainView(mainViewDataResponse: mainViewDataResponse)
+        case let .favourites(favourites):
+            FavouritesView(favourites: favourites)
         case .responses:
             ResponsesView()
         case .messages:
             MessagesView()
         case .profile:
             ProfileView()
-        case .vacancyList:
-            VacancyListView(vacancies: dataManager.mockMainViewDataResponse.vacancies)
-        case .vacancy:
-            VacancyView()
+        case let .vacancyList(vacancyList):
+            VacancyListView(vacancies: vacancyList)
+        case let .vacancy(vacancy):
+            VacancyView(vacancy: vacancy)
         }
     }
-}
-
-enum Page: String {
-    case signIn
-    case main = "Поиск"
-    case favourites = "Избранное"
-    case responses = "Отклики"
-    case messages = "Сообщения"
-    case profile = "Профиль"
-    case vacancyList = "По соответствию"
-    case vacancy = "Страница вакансии"
 }

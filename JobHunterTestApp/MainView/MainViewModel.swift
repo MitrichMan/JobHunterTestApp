@@ -7,40 +7,12 @@
 
 import SwiftUI
 
-class MainViewModel: ObservableObject {
-    @Published var isDataFetched = false
+class MainViewModel: ObservableObject {    
+    @Published var vacancies: [Vacancy] = DataManager.shared.mainViewData.vacancies
     
-    var dataManager = DataManager.shared
-    
+    var offers: [Offer] = DataManager.shared.mainViewData.offers
+        
     var isLoggedIn = false
-    
-    var mainViewData = MainViewDataResponse(offers: [], vacancies: []) {
-        didSet {
-            offers = mainViewData.offers
-            vacancies = mainViewData.vacancies
-        }
-    }
-    var offers: [Offer] = []
-    var vacancies: [Vacancy] = []
-    
-    @MainActor func fetchMainViewData() async {
-        do {
-            mainViewData = try await NetworkManager.shared.fetchMainViewDataResponse()
-            isDataFetched = true
-        } catch {
-            print(error)
-        }
-    }
-    
-    func fetchMockData() async {
-        mainViewData = dataManager.mockMainViewDataResponse
-        
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
-        
-        DispatchQueue.main.async {
-            self.isDataFetched = true
-        }
-    }
     
     func setAvatarForOfferCell(with index: Int) -> Image {
         switch offers[index].id {

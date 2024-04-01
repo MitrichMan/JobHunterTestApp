@@ -76,8 +76,8 @@ struct VerificationCodeView: View {
                 
                 Button {
                     DataManager.shared.isLoggedIn = true
-                    DataManager.shared.presentedTab = .main
-                    coordinator.push(DataManager.shared.presentedTab)
+                    DataManager.shared.presentedPage = .main(DataManager.shared.mainViewData)
+                    coordinator.push(DataManager.shared.presentedPage)
                 } label: {
                     ZStack {
                         if isCodeEntered {

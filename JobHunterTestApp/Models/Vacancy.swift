@@ -7,23 +7,23 @@
 
 import Foundation
 
-struct MainViewDataResponse: Decodable {
+struct MainViewDataResponse: Decodable, Hashable {
     let offers: [Offer]
-    let vacancies: [Vacancy]
+    var vacancies: [Vacancy]
 }
 
-struct Offer: Decodable {
+struct Offer: Decodable, Hashable {
     let id: String?
     let title: String
     let link: String
     let button: OfferButton?
 }
 
-struct OfferButton: Decodable {
+struct OfferButton: Decodable, Hashable {
     let text: String
 }
 
-struct Vacancy: Decodable {
+struct Vacancy: Decodable, Hashable {
     let id: String
     let lookingNumber: Int?
     let title: String
@@ -40,18 +40,18 @@ struct Vacancy: Decodable {
     let questions: [String]
 }
 
-struct Address: Decodable {
+struct Address: Decodable, Hashable {
     let town: String
     let street: String
     let house: String
 }
 
-struct Experience: Decodable {
+struct Experience: Decodable, Hashable {
     let previewText: String
     let text: String
 }
 
-struct Salary: Decodable {
+struct Salary: Decodable, Hashable {
     let full: String
     let short: String?
 }
