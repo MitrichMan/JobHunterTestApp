@@ -11,6 +11,7 @@ import SwiftUI
     @Published var dataManager = DataManager.shared
     @Published var path = NavigationPath()
     
+    @Published var presentedPage: Page = .main(DataManager.shared.mainViewData)
     
     func push(_ page: Page) {
         path.append(page)
@@ -38,10 +39,6 @@ import SwiftUI
             MessagesView()
         case .profile:
             ProfileView()
-        case let .vacancyList(vacancyList):
-            VacancyListView(vacancies: vacancyList)
-        case let .vacancy(vacancy):
-            VacancyView(vacancy: vacancy)
         }
     }
 }

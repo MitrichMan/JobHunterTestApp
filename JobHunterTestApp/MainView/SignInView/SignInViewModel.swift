@@ -5,7 +5,6 @@
 //  Created by Dmitrii Melnikov on 20.03.2024.
 //
 
-import Foundation
 import SwiftUI
 
 class SignInViewModel: ObservableObject {
@@ -13,6 +12,8 @@ class SignInViewModel: ObservableObject {
     
     @Published var isErrorModePresented = false
     @Published var isVerificationCodeViewPresented = false
+    
+    @Published var verificationNumber: [String] = ["", "", "", ""]
             
     func validateEmail(text: String) -> Bool {
         if text.count > 100 {
@@ -38,6 +39,26 @@ class SignInViewModel: ObservableObject {
                 .thirdDigit
         default:
                 .fourthDigit
+        }
+    }
+    
+    
+    func focusFirstField() -> FocusableField {
+        FocusableField.allCases.first ?? .firstDigit
+    }
+    
+    func focusNextField(focusedField: FocusableField?) -> FocusableField? {
+        switch focusedField {
+        case .firstDigit:
+            /*focusedField = */return .secondDigit
+        case .secondDigit:
+            /*focusedField = */return .thirdDigit
+        case .thirdDigit:
+            /*focusedField = */return .fourthDigit
+        case .fourthDigit:
+            /*focusedField = */return nil
+        case .none:
+            return nil
         }
     }
 }

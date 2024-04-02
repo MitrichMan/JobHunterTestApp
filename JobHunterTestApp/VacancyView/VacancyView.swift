@@ -9,10 +9,10 @@ import SwiftUI
 
 struct VacancyView: View {
     @EnvironmentObject private var coordinator: Coordinator
+    @StateObject var viewModel = VacancyViewModel()
     
+    @Binding var vacancyIsPresented: Bool
     var vacancy: Vacancy
-    
-//    var isFavourite = false
     
     var body: some View {
         ZStack {
@@ -22,7 +22,8 @@ struct VacancyView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Button {
-                        coordinator.pop()
+                        vacancyIsPresented = false
+                        
                     } label: {
                         Image(.leftArrowDefault)
                             .resizable()
@@ -58,24 +59,23 @@ struct VacancyView: View {
                 .padding(.vertical, 8)
                 
                 ScrollView {
-                    
                     HStack {
-                        VStack(alignment: .leading) {
-                            Text("UI/UX Designer")
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(vacancy.title)
                                 .font(.system(size: 22, weight: .semibold))
                                 .foregroundStyle(.white)
                             
-                            Text("Уровень дохода не указан")
-                                .font(.system(size: 16))
+                            Text(vacancy.salary.full)
+                                .font(.system(size: 14))
                                 .foregroundStyle(.white)
-                                .padding(.vertical, 4)
+                                .padding(.vertical, 8)
                             
-                            Text("Требуемый опыт: от 1 года до 3 лет")
-                                .font(.system(size: 16))
+                            Text("Требуемый опыт: \(vacancy.experience.text)")
+                                .font(.system(size: 14))
                                 .foregroundStyle(.white)
                             
-                            Text("Полная занятость, полный день")
-                                .font(.system(size: 16))
+                            Text(viewModel.getSchedulesString(from: vacancy.schedules))
+                                .font(.system(size: 14))
                                 .foregroundStyle(.white)
                         }
                         
@@ -84,29 +84,90 @@ struct VacancyView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     
-                    HStack {
-                        Color.green
-                            .frame(height: 50)
-                            .cornerRadius(12)
-                        
-                        Color.green
-                            .frame(height: 50)
-                            .cornerRadius(12)
+                    if vacancy.appliedNumber != nil || vacancy.appliedNumber != nil {
+                        HStack {
+                            if vacancy.appliedNumber != nil {
+                                ZStack {
+                                    Color.darkGreen
+                                        .frame(height: 50)
+                                        .cornerRadius(12)
+                                    
+                                    HStack(spacing: 8) {
+                                        Text("\(vacancy.appliedNumber ?? 0) человек уже откликнулись")
+                                            .font(.system(size: 14))
+                                            .foregroundStyle(.white)
+                                        
+                                        Spacer()
+                                        
+                                        VStack {
+                                            ZStack {
+                                                Circle()
+                                                    .frame(width: 16)
+                                                    .foregroundColor(.green1)
+                                                
+                                                Image(.profileDefault)
+                                                    .resizable()
+                                                    .foregroundStyle(.white)
+                                                    .frame(width: 8, height: 8)
+                                                
+                                            }
+                                            Spacer()
+                                        }
+                                    }
+                                    .padding(8)
+                                }
+                            }
+                            
+                            if vacancy.lookingNumber != nil {
+                                ZStack {
+                                    Color.darkGreen
+                                        .frame(height: 50)
+                                        .cornerRadius(12)
+                                    
+                                    HStack(spacing: 8) {
+                                        Text("\(vacancy.lookingNumber ?? 0) человека сейчас смотрят")
+                                            .font(.system(size: 14))
+                                            .foregroundStyle(.white)
+                                        
+                                        Spacer()
+                                        
+                                        VStack {
+                                            ZStack {
+                                                Circle()
+                                                    .frame(width: 16)
+                                                    .foregroundColor(.green1)
+                                                
+                                                Image(.eyeActive)
+                                                    .resizable()
+                                                    .foregroundStyle(.white)
+                                                    .frame(width: 8, height: 8)
+                                                
+                                            }
+                                            Spacer()
+                                        }
+                                    }
+                                    .padding(8)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
                     
                     ZStack {
-                        Color.gray
+                        Color.gray1
                             .cornerRadius(12)
                         
-                        VStack {
+                        VStack(spacing: 8) {
                             HStack {
-                                Text("Мобирикс")
-                                    .font(.system(size: 18, weight: .semibold))
+                                Text(vacancy.company)
+                                    .font(.system(size: 16, weight: .medium))
                                     .foregroundStyle(.white)
                                 
                                 Image(systemName: "checkmark.circle")
+                                    .resizable()
+                                    .frame(width: 12, height: 12)
+                                    .foregroundStyle(.gray3)
                                 
                                 Spacer()
                             }
@@ -117,8 +178,8 @@ struct VacancyView: View {
                                 .cornerRadius(12)
                             
                             HStack {
-                                Text("Минск, улица Бирюзова, 4/5")
-                                    .font(.system(size: 16))
+                                Text("\(vacancy.address.town), \(vacancy.address.street) \(vacancy.address.house)")
+                                    .font(.system(size: 14))
                                     .foregroundStyle(.white)
                                 
                                 Spacer()
@@ -129,11 +190,13 @@ struct VacancyView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     
-                    Text("MOBYRIX - динамично развивающаяся продуктовая IT-компания, специализирующаяся на разработке мобильных приложений для iOS и Android. Наша команда работает над собственными продуктами в разнообразных сферах: от утилит до развлечений и бизнес-приложений. Мы ценим талант и стремление к инновациям и в данный момент в поиске талантливого UX/UI Designer, готового присоединиться к нашей команде и внести значимый вклад в развитие наших проектов.")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
+                    if vacancy.description != nil {
+                        Text(vacancy.description ?? "")
+                            .font(.system(size: 16))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal)
+                            .padding(.vertical, 8)
+                    }
                     
                     HStack {
                         Text("Ваши задачи")
@@ -145,49 +208,65 @@ struct VacancyView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
                     
-                    Text("-Проектировать пользовательский опыт, проводить UX исследования; -Разрабатывать адаптивный дизайн интерфейса для мобильных приложений; -Разрабатывать быстрые прототипы для тестирования идеи дизайна и их последующая; интеграция на основе обратной связи от команды и пользователей; -Взаимодействовать с командой разработчиков для обеспечения точной реализации ваших дизайнов; -Анализ пользовательского опыта и адаптация под тренды.")
-                        .font(.system(size: 16))
+                    Text(vacancy.responsibilities)
+                        .font(.system(size: 14))
                         .foregroundStyle(.white)
                         .padding(.horizontal)
                         .padding(.vertical, 8)
                     
-                    Text("Задайте вопрос работодателю")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                    
-                    Text("Он получит его с откликом на вакансию")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(.gray)
-                        .padding(.horizontal)
-                        .padding(.bottom, 8)
-                    
                     HStack {
-                        ZStack {
-                            Capsule()
-                                .foregroundStyle(.gray)
-                            
-                            Text("Какой график работы?")
-                                .font(.system(size: 16, weight: .semibold))
+                        VStack(alignment: .leading) {
+                            Text("Задайте вопрос работодателю")
+                                .font(.system(size: 14, weight: .medium))
                                 .foregroundStyle(.white)
-                                .padding(.vertical, 4)
+                                .padding(.horizontal)
+                                .padding(.top, 8)
+                            
+                            Text("Он получит его с откликом на вакансию")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundStyle(.gray3)
+                                .padding(.horizontal)
+                                .padding(.bottom, 8)
+                        }
+                        
+                        Spacer()
+                    }
+                    
+                    
+                    ForEach(vacancy.questions, id: \.self) { question in
+                        Button {} label: {
+                            HStack {
+                                Text(question)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundStyle(.white)
+                                    .padding(8)
+                                    .background(.gray3, in: .capsule, fillStyle: .init(eoFill: true))
+                                
+                                Spacer()
+                            }
+                            .padding(.horizontal)
                         }
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
-                    
                     Button {} label: {
                         ZStack {
-                            Capsule()
-                                .foregroundStyle(.green)
+                            Color.green1
+                                .cornerRadius(8)
+                            
+                            HStack {
+                            Spacer()
+                            
                             Text("Откликнуться")
-                                .foregroundStyle(.white)
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 16, weight: .semibold))
+                            
+                            Spacer()
+                            }
+                            .padding(14)
                         }
-                        .frame(height: 35)
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
+                }
+//                .buttonStyle(.borderedProminent)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
                 }
             }
         }
@@ -196,40 +275,40 @@ struct VacancyView: View {
 }
 
 #Preview {
-    VacancyView(vacancy:
-        Vacancy(
-        id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
-        lookingNumber: 2,
-        title: "UI/UX дизайнер",
-        address: Address(
-            town: "Минск",
-            street: "улица Бирюзова",
-            house: "4/5"
-        ),
-        company: "Мобирикс",
-        experience: Experience(
-            previewText: "Опыт от 1 до 3 лет",
-            text: "1–3 года"
-        ),
-        publishedDate: "2024-02-20",
-        isFavorite: false,
-        salary: Salary(
-            full: "Уровень дохода не указан",
-            short: nil
-        ),
-        schedules: [
-            "полная занятость",
-            "полный день"
-        ],
-        appliedNumber: 147,
-        description: "Мы ищем специалиста на позицию UX/UI Designer, который вместе с коллегами будет заниматься проектированием пользовательских интерфейсов внутренних и внешних продуктов компании.",
-        responsibilities: "- проектирование пользовательских сценариев и создание прототипов;\n- разработка интерфейсов для продуктов компании (Web+App);\n- работа над созданием и улучшением Дизайн-системы;\n- взаимодействие с командами frontend-разработки;\n- контроль качества внедрения дизайна;\n- ситуативно: создание презентаций и других материалов на основе фирменного стиля компании",
-        questions: [
-            "Где располагается место работы?",
-            "Какой график работы?",
-            "Вакансия открыта?",
-            "Какая оплата труда?"
-        ]
-    )
-    )
+    VacancyView(
+        vacancyIsPresented: .constant(true),
+        vacancy: Vacancy(
+            id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
+            lookingNumber: 2,
+            title: "UI/UX дизайнер",
+            address: Address(
+                town: "Минск",
+                street: "улица Бирюзова",
+                house: "4/5"
+            ),
+            company: "Мобирикс",
+            experience: Experience(
+                previewText: "Опыт от 1 до 3 лет",
+                text: "1–3 года"
+            ),
+            publishedDate: "2024-02-20",
+            isFavorite: false,
+            salary: Salary(
+                full: "Уровень дохода не указан",
+                short: nil
+            ),
+            schedules: [
+                "полная занятость",
+                "полный день"
+            ],
+            appliedNumber: 147,
+            description: "Мы ищем специалиста на позицию UX/UI Designer, который вместе с коллегами будет заниматься проектированием пользовательских интерфейсов внутренних и внешних продуктов компании.",
+            responsibilities: "- проектирование пользовательских сценариев и создание прототипов;\n- разработка интерфейсов для продуктов компании (Web+App);\n- работа над созданием и улучшением Дизайн-системы;\n- взаимодействие с командами frontend-разработки;\n- контроль качества внедрения дизайна;\n- ситуативно: создание презентаций и других материалов на основе фирменного стиля компании",
+            questions: [
+                "Где располагается место работы?",
+                "Какой график работы?",
+                "Вакансия открыта?",
+                "Какая оплата труда?"
+            ]
+        ))
 }

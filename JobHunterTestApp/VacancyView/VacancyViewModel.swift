@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+class VacancyViewModel: ObservableObject {
+    func getSchedulesString(from schedules: [String]) -> String {
+        var schedulesString = ""
+        for schedule in schedules  {
+            if schedulesString.isEmpty {
+                schedulesString = schedule.localizedCapitalized
+            } else {
+                schedulesString += ", \(schedule)"
+            }
+        }
+        return schedulesString
+    }
+}

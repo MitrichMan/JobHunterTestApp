@@ -25,30 +25,31 @@ struct TabBarView: View {
                     {
                         
                         if viewModel.dataManager.isLoggedIn {
-                            viewModel.dataManager.presentedPage = viewModel.getPage(from: tab)
-                            coordinator.push(viewModel.dataManager.presentedPage)
+                            coordinator.presentedPage = viewModel.getPage(from: tab)
+                            coordinator.push(coordinator.presentedPage)
                             
                         } else { return }
                     }
                 label: {
                     VStack {
-// TODO: - make sticker logic
-//                        ZStack {
-                        viewModel.getImage(for: tab)
-                            .resizable()
-                            .frame(width: 26, height: 26)
-                            .padding(.horizontal)
-                        
-//                            ZStack {
-//                                Image(.notificationSticker)
-//                                    .foregroundStyle(.red)
-//
-//                                Text("4")
-//                                    .font(.system(size: 8, weight: .bold))
-//                                    .foregroundStyle(.white)
-//                                    .offset(CGSize(width: 7.9, height: -6))
-//                            }
-//                        }
+                            ZStack {
+                            viewModel.getImage(for: tab)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .padding(.horizontal)
+                            
+                                if tab == .favourites && viewModel.getFavorites().count != 0 {
+                                ZStack {
+                                    Image(.notificationSticker)
+                                        .foregroundStyle(.red)
+
+                                    Text(viewModel.getFavorites().count.formatted())
+                                        .font(.system(size: 8, weight: .bold))
+                                        .foregroundStyle(.white)
+                                        .offset(CGSize(width: 7.9, height: -6))
+                                }
+                            }
+                        }
                         
                         Text(viewModel.getTabName(for: tab))
                             .font(.system(size: 10))
@@ -57,11 +58,11 @@ struct TabBarView: View {
                     .foregroundStyle(
                         viewModel.getcolor(
                             if: tab,
-                            matches: viewModel.getTab(from: viewModel.dataManager.presentedPage)
+                            matches: viewModel.getTab(from: coordinator.presentedPage)
                         )
                     )
                 }
-                .disabled(viewModel.getTab(from: viewModel.dataManager.presentedPage) == tab ? true : false)
+                .disabled(viewModel.getTab(from: coordinator.presentedPage) == tab ? true : false)
                 }
                 .disabled(!viewModel.dataManager.isLoggedIn)
             }

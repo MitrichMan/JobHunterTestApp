@@ -11,10 +11,10 @@ struct VerificationCodeView: View {
     @EnvironmentObject private var coordinator: Coordinator
     @StateObject private var viewModel = SignInViewModel()
     
-    @State var verificationNumber: [String] = ["", "", "", ""]
-    @State var isCodeEntered = false
-    
     @FocusState var focusedField: FocusableField?
+    
+//    @State var verificationNumber: [String] = ["", "", "", ""]
+    @State var isCodeEntered = false
     
     @Binding var enteredEmail: String
     
@@ -36,20 +36,18 @@ struct VerificationCodeView: View {
                     ForEach(0...(FocusableField.allCases.count - 1), id: \.self) { index in
                         ZStack {
                             Color(.gray2)
-                                .frame(width: 48, height: 48)
-                                .cornerRadius(8)
-                                .shadow(color: .shadow, radius: 2, y:4)
                             
-                            if verificationNumber[index].count == 0 {
+                            if viewModel.verificationNumber[index].count == 0 {
                                 Text("*")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(.gray4)
+                                    .font(.system(size: 24, weight: .medium))
+                                    .foregroundStyle(.gray3)
                                     .frame(height: 40)
                                     .padding(.horizontal, 8)
+                                    .offset(y: 5)
                             }
                             
-                            TextField("", text: $verificationNumber[index])
-                                .frame(width: 11, height: 48, alignment: .center)
+                            TextField("", text: $viewModel.verificationNumber[index])
+                                .frame(width: 12, height: 48, alignment: .center)
                                 .foregroundStyle(.white)
                                 .padding(.horizontal, 8)
                                 .keyboardType(.numberPad)
@@ -57,11 +55,14 @@ struct VerificationCodeView: View {
                                     $focusedField,
                                     equals:  viewModel.setUpFocusableField(index: index)
                                 )
-                                .onChange(of: verificationNumber[index]) {
-                                    if verificationNumber[index].count != 0 {
-                                        focusNextField()
+                                .onChange(of: viewModel.verificationNumber[index]) {
+                                    viewModel.verificationNumber = viewModel.verificationNumber.map{String($0.prefix(1))}
+                                    if viewModel.verificationNumber[index].count != 0 {
+                                        focusedField = viewModel.focusNextField(
+                                            focusedField: focusedField
+                                        )
                                     }
-                                    let allFieldsFilled = verificationNumber
+                                    let allFieldsFilled = viewModel.verificationNumber
                                         .filter { $0.isEmpty }
                                         .isEmpty
                                     if allFieldsFilled {
@@ -72,12 +73,13 @@ struct VerificationCodeView: View {
                                 }
                         }
                     }
+                    .frame(width: 48, height: 48)
+                    .cornerRadius(8)
                 }
                 
                 Button {
                     DataManager.shared.isLoggedIn = true
-                    DataManager.shared.presentedPage = .main(DataManager.shared.mainViewData)
-                    coordinator.push(DataManager.shared.presentedPage)
+                    coordinator.presentedPage = .main(DataManager.shared.mainViewData)
                 } label: {
                     ZStack {
                         if isCodeEntered {
@@ -110,26 +112,7 @@ struct VerificationCodeView: View {
         }
         .navigationBarBackButtonHidden()
         .onAppear {
-            focusFirstField()
-        }
-    }
-    
-    func focusFirstField() {
-        focusedField = FocusableField.allCases.first
-    }
-    
-    func focusNextField() {
-        switch focusedField {
-        case .firstDigit:
-            focusedField = .secondDigit
-        case .secondDigit:
-            focusedField = .thirdDigit
-        case .thirdDigit:
-            focusedField = .fourthDigit
-        case .fourthDigit:
-            focusedField = .fourthDigit
-        case .none:
-            break
+            focusedField = viewModel.focusFirstField()
         }
     }
 }

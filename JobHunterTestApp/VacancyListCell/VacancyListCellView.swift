@@ -27,7 +27,7 @@ struct VacancyListCellView: View {
                     Button {
                         viewModel.vacancy.isFavorite.toggle()
                     } label: {
-                        if viewModel.vacancy.isFavorite {
+                        if vacancy.isFavorite {
                             Image(.heartFill)
                                 .resizable()
                                 .frame(width: 16, height: 16)

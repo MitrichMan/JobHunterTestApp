@@ -10,9 +10,8 @@ import SwiftUI
 class TabBarViewModel: ObservableObject {
     
     @Published var dataManager = DataManager.shared
-    
     @Published var foregroundColor = Color.gray
-    
+        
     func getcolor(if tab: TabBarTab, matches selectedTab: TabBarTab) -> Color {
         if tab == selectedTab {
             return Color.blue
@@ -35,6 +34,13 @@ class TabBarViewModel: ObservableObject {
             Image(.profileDefault)
         case .signIn:
             Image(.bigCloseDefault)
+        }
+    }
+    
+    
+    func getFavorites() -> [Vacancy] {
+        DataManager.shared.mainViewData.vacancies.filter { vacancy in
+            vacancy.isFavorite
         }
     }
     
@@ -77,7 +83,7 @@ class TabBarViewModel: ObservableObject {
         case .main:
                 .main(dataManager.mainViewData)
         case .favourites:
-                .favourites(getFavourite(from: dataManager.mainViewData.vacancies))
+                .favourites(getFavorites())
         case .responses:
                 .responses
         case .messages:
@@ -87,9 +93,5 @@ class TabBarViewModel: ObservableObject {
         case .signIn:
                 .signIn
         }
-    }
-    
-    func getFavourite(from vacancies: [Vacancy]) -> [Vacancy] {
-        vacancies.filter { $0.isFavorite }
     }
 }

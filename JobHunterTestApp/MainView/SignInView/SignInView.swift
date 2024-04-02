@@ -155,7 +155,7 @@ struct SignInView: View {
                                 ) {
                                     VerificationCodeView(enteredEmail: $text)
                                 }
-                                
+                                                                
                                 Spacer()
                                 
                                 Button {} label: {

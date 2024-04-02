@@ -11,12 +11,9 @@ class DataManager: ObservableObject {
     @Published var emailIsValid = false
     @Published var isLoggedIn = false
     @Published var isDataFetched = false
-
     
     @Published var mainViewData = MainViewDataResponse(offers: [], vacancies: [])
-    
-    @Published var presentedPage: Page = .signIn
-    
+        
     let tabBarTabs: [TabBarTab] = [.main, .favourites, .responses, .messages, .profile]
     
     let mockMainViewDataResponse = MainViewDataResponse(
@@ -195,8 +192,8 @@ enum Page: Hashable {
     case responses
     case messages
     case profile
-    case vacancyList([Vacancy])
-    case vacancy(Vacancy)
+//    case vacancyList([Vacancy])
+//    case vacancy(Vacancy)
 }
 
 //"""

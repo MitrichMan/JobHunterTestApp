@@ -27,6 +27,7 @@ struct CoordinatorView: View {
                 
                 TabBarView()
                     .environmentObject(coordinator)
+                    .padding(.horizontal, 8)
             }
         }
         // TODO: - fetch real data mhen API is fixed
