@@ -8,29 +8,33 @@
 import SwiftUI
 
 @MainActor class Coordinator: ObservableObject {
-    @Published var dataManager = DataManager.shared
     @Published var path = NavigationPath()
     
-    @Published var presentedPage: Page = .main(DataManager.shared.mainViewData)
+    @Published var presentedTab: Tab = .mainViewCoordinator
     
-    func push(_ page: Page) {
+    func push(_ page: Tab) {
+        print("TabCoord before push \(path)")
         path.append(page)
+        print("TabCoord after push \(path)")
+        
     }
     
     func pop() {
+        print("TabCoord before pop \(path)")
         path.removeLast()
+        print("TabCoord after pop \(path)")
+        
     }
     
     func popToRoot() {
+        print("TabCoord before popToRoot \(path)")
         path.removeLast(path.count)
+        print("TabCoord after popToRoot \(path)")
+        
     }
     
-    @ViewBuilder func build(page: Page) -> some View {
-        switch page {
-        case .signIn:
-            SignInView()
-        case let .main(mainViewDataResponse):
-            MainView(mainViewDataResponse: mainViewDataResponse)
+    @ViewBuilder func build(tab: Tab) -> some View {
+        switch tab {
         case let .favourites(favourites):
             FavouritesView(favourites: favourites)
         case .responses:
@@ -39,6 +43,8 @@ import SwiftUI
             MessagesView()
         case .profile:
             ProfileView()
+        case .mainViewCoordinator:
+            MainViewCoordinatorView()
         }
     }
 }

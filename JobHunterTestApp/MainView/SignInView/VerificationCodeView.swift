@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct VerificationCodeView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject private var mainViewCoordinator: MainViewCoordinator
     @StateObject private var viewModel = SignInViewModel()
+//    @StateObject private var dataManager = DataManager.shared
     
     @FocusState var focusedField: FocusableField?
     
@@ -56,16 +57,17 @@ struct VerificationCodeView: View {
                                     equals:  viewModel.setUpFocusableField(index: index)
                                 )
                                 .onChange(of: viewModel.verificationNumber[index]) {
-                                    viewModel.verificationNumber = viewModel.verificationNumber.map{String($0.prefix(1))}
+                                    viewModel.verificationNumber = viewModel.verificationNumber
+                                        .map{ String($0.prefix(1)) }
                                     if viewModel.verificationNumber[index].count != 0 {
                                         focusedField = viewModel.focusNextField(
                                             focusedField: focusedField
                                         )
                                     }
-                                    let allFieldsFilled = viewModel.verificationNumber
-                                        .filter { $0.isEmpty }
-                                        .isEmpty
-                                    if allFieldsFilled {
+//                                    let allFieldsFilled = viewModel.verificationNumber
+//                                        .filter { $0.isEmpty }
+//                                        .isEmpty
+                                    if viewModel.verificationNumber.filter({ $0.isEmpty }).isEmpty {
                                         isCodeEntered = true
                                     } else {
                                         isCodeEntered = false
@@ -78,8 +80,8 @@ struct VerificationCodeView: View {
                 }
                 
                 Button {
-                    DataManager.shared.isLoggedIn = true
-                    coordinator.presentedPage = .main(DataManager.shared.mainViewData)
+                    viewModel.dataManager.isLoggedIn = true
+                    mainViewCoordinator.push(.main(viewModel.dataManager.mainViewData))
                 } label: {
                     ZStack {
                         if isCodeEntered {

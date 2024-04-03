@@ -30,6 +30,8 @@
 		4D62E77B2BB056A00017241C /* VacancyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E77A2BB056A00017241C /* VacancyListView.swift */; };
 		4D62E77E2BB05E910017241C /* VacancyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E77D2BB05E910017241C /* VacancyView.swift */; };
 		4D62E7802BB2F0630017241C /* VavancyListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62E77F2BB2F0630017241C /* VavancyListCellViewModel.swift */; };
+		4D8E0A5E2BBD8B570072BCA7 /* MainViewCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E0A5D2BBD8B570072BCA7 /* MainViewCoordinatorView.swift */; };
+		4D8E0A602BBDCD610072BCA7 /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8E0A5F2BBDCD610072BCA7 /* MainViewCoordinator.swift */; };
 		4DA490512BB6EB6E00E3D294 /* VacancyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA490502BB6EB6E00E3D294 /* VacancyViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,8 @@
 		4D62E77A2BB056A00017241C /* VacancyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyListView.swift; sourceTree = "<group>"; };
 		4D62E77D2BB05E910017241C /* VacancyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyView.swift; sourceTree = "<group>"; };
 		4D62E77F2BB2F0630017241C /* VavancyListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VavancyListCellViewModel.swift; sourceTree = "<group>"; };
+		4D8E0A5D2BBD8B570072BCA7 /* MainViewCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinatorView.swift; sourceTree = "<group>"; };
+		4D8E0A5F2BBDCD610072BCA7 /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
 		4DA490502BB6EB6E00E3D294 /* VacancyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +99,7 @@
 				4D0BD3EF2BAB0D5E0022588F /* Coordinator */,
 				4D0BD4112BAC62C00022588F /* MainView */,
 				4D0BD3F42BAB0F180022588F /* TabBar */,
+				4D62E77C2BB05E5B0017241C /* VacancyListView */,
 				4D62E7772BAF63240017241C /* VacancyListCell */,
 				4DA4904F2BB6EB5200E3D294 /* VacancyView */,
 				4D0BD40E2BAB69760022588F /* Services */,
@@ -160,7 +165,7 @@
 				4D0BD4022BAB56570022588F /* MainView.swift */,
 				4D0BD40F2BAC62B60022588F /* MainViewModel.swift */,
 				4D0BD3FD2BAB4E3A0022588F /* SignInView */,
-				4D62E77C2BB05E5B0017241C /* VacancyListView */,
+				4D8E0A612BBDD30D0072BCA7 /* MainViewCoordinator */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
@@ -188,6 +193,15 @@
 				4D62E77A2BB056A00017241C /* VacancyListView.swift */,
 			);
 			path = VacancyListView;
+			sourceTree = "<group>";
+		};
+		4D8E0A612BBDD30D0072BCA7 /* MainViewCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4D8E0A5D2BBD8B570072BCA7 /* MainViewCoordinatorView.swift */,
+				4D8E0A5F2BBDCD610072BCA7 /* MainViewCoordinator.swift */,
+			);
+			path = MainViewCoordinator;
 			sourceTree = "<group>";
 		};
 		4DA4904F2BB6EB5200E3D294 /* VacancyView */ = {
@@ -274,6 +288,7 @@
 				4DA490512BB6EB6E00E3D294 /* VacancyViewModel.swift in Sources */,
 				4D62E7802BB2F0630017241C /* VavancyListCellViewModel.swift in Sources */,
 				4D0BD4032BAB56570022588F /* MainView.swift in Sources */,
+				4D8E0A5E2BBD8B570072BCA7 /* MainViewCoordinatorView.swift in Sources */,
 				4D0BD40D2BAB69700022588F /* DataManager.swift in Sources */,
 				4D0BD3FF2BAB4E740022588F /* SignInViewModel.swift in Sources */,
 				4D0BD4102BAC62B60022588F /* MainViewModel.swift in Sources */,
@@ -284,6 +299,7 @@
 				4D62E7792BAF63B60017241C /* VacancyListCellView.swift in Sources */,
 				4D0BD4012BAB4FC20022588F /* VerificationCodeView.swift in Sources */,
 				4D0BD4162BAE12E00022588F /* Network Manager.swift in Sources */,
+				4D8E0A602BBDCD610072BCA7 /* MainViewCoordinator.swift in Sources */,
 				4D0BD4092BAB59290022588F /* MessagesView.swift in Sources */,
 				4D0BD4052BAB59080022588F /* FavouritesView.swift in Sources */,
 				4D0BD4142BADA6310022588F /* Vacancy.swift in Sources */,

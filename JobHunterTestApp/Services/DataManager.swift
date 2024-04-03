@@ -10,12 +10,13 @@ import Foundation
 class DataManager: ObservableObject {
     @Published var emailIsValid = false
     @Published var isLoggedIn = false
+    
     @Published var isDataFetched = false
     
     @Published var mainViewData = MainViewDataResponse(offers: [], vacancies: [])
-        
-    let tabBarTabs: [TabBarTab] = [.main, .favourites, .responses, .messages, .profile]
-    
+            
+    let tabBarTabs: [Tab] = [.mainViewCoordinator, .favourites([]), .responses, .messages, .profile]
+
     let mockMainViewDataResponse = MainViewDataResponse(
         offers: [
             Offer(
@@ -147,12 +148,12 @@ class DataManager: ObservableObject {
             )
         ]
     )
-        
+            
     static let shared = DataManager()
     
     private init() {}
     
-    func getStartPage() -> Page{
+    func getStartPage() -> Page {
         return isLoggedIn && isDataFetched ? .main(mainViewData) : .signIn
     }
     
@@ -176,24 +177,27 @@ class DataManager: ObservableObject {
     }
 }
 
-enum TabBarTab: CaseIterable {
-    case main
-    case favourites
+//enum TabBarTab: CaseIterable {
+//    case main
+//    case favourites
+//    case responses
+//    case messages
+//    case profile
+//}
+
+enum Tab: Hashable {
+    case mainViewCoordinator
+    case favourites([Vacancy])
     case responses
     case messages
     case profile
-    case signIn
 }
 
 enum Page: Hashable {
     case signIn
     case main(MainViewDataResponse)
-    case favourites([Vacancy])
-    case responses
-    case messages
-    case profile
-//    case vacancyList([Vacancy])
-//    case vacancy(Vacancy)
+    case vacancyList([Vacancy])
+    case vacancy(Vacancy)
 }
 
 //"""

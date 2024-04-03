@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct VacancyView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject private var mainViewCoordinator: MainViewCoordinator
     @StateObject var viewModel = VacancyViewModel()
     
-    @Binding var vacancyIsPresented: Bool
     var vacancy: Vacancy
     
     var body: some View {
@@ -22,8 +21,7 @@ struct VacancyView: View {
             VStack(alignment: .leading) {
                 HStack {
                     Button {
-                        vacancyIsPresented = false
-                        
+                        mainViewCoordinator.pop()
                     } label: {
                         Image(.leftArrowDefault)
                             .resizable()
@@ -253,20 +251,19 @@ struct VacancyView: View {
                                 .cornerRadius(8)
                             
                             HStack {
-                            Spacer()
-                            
-                            Text("Откликнуться")
+                                Spacer()
+                                
+                                Text("Откликнуться")
                                     .foregroundStyle(.white)
                                     .font(.system(size: 16, weight: .semibold))
-                            
-                            Spacer()
+                                
+                                Spacer()
                             }
                             .padding(14)
                         }
-                }
-//                .buttonStyle(.borderedProminent)
-                .padding(.horizontal)
-                .padding(.vertical, 8)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                 }
             }
         }
@@ -276,7 +273,6 @@ struct VacancyView: View {
 
 #Preview {
     VacancyView(
-        vacancyIsPresented: .constant(true),
         vacancy: Vacancy(
             id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
             lookingNumber: 2,

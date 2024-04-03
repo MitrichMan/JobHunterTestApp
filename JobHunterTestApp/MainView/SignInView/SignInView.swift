@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignInView: View {
-//    @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject private var mainViewCoordinator: MainViewCoordinator
     @StateObject private var viewModel = SignInViewModel()
     
     @State var text = "" {
@@ -92,7 +92,7 @@ struct SignInView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(
                                         Color.red1,
-                                        lineWidth:                                 viewModel.isErrorModePresented ? 1 : 0
+                                        lineWidth: viewModel.isErrorModePresented ? 1 : 0
                                     )
                             )
                             .onChange(of: text, {
@@ -149,7 +149,7 @@ struct SignInView: View {
                                     .overlay(RoundedRectangle(cornerRadius: 8)
                                         .stroke(Color.black, lineWidth: 1))
                                 }
-                                .disabled(text.isEmpty)
+                                .disabled(text.isEmpty || viewModel.isErrorModePresented)
                                 .sheet(
                                     isPresented: $viewModel.isVerificationCodeViewPresented
                                 ) {

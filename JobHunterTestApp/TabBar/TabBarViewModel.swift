@@ -8,11 +8,11 @@
 import SwiftUI
 
 class TabBarViewModel: ObservableObject {
+    @ObservedObject var dataManager = DataManager.shared
     
-    @Published var dataManager = DataManager.shared
     @Published var foregroundColor = Color.gray
         
-    func getcolor(if tab: TabBarTab, matches selectedTab: TabBarTab) -> Color {
+    func getcolor(if tab: Tab, matches selectedTab: Tab) -> Color {
         if tab == selectedTab {
             return Color.blue
         } else {
@@ -20,9 +20,9 @@ class TabBarViewModel: ObservableObject {
         }
     }
     
-    func getImage(for tab: TabBarTab) -> Image {
+    func getImage(for tab: Tab) -> Image {
         switch tab {
-        case .main:
+        case .mainViewCoordinator:
             Image(.searchDefault)
         case .favourites:
             Image(.heartDefault)
@@ -32,21 +32,18 @@ class TabBarViewModel: ObservableObject {
             Image(.messagesDefault)
         case .profile:
             Image(.profileDefault)
-        case .signIn:
-            Image(.bigCloseDefault)
         }
     }
     
-    
     func getFavorites() -> [Vacancy] {
-        DataManager.shared.mainViewData.vacancies.filter { vacancy in
+        dataManager.mainViewData.vacancies.filter { vacancy in
             vacancy.isFavorite
         }
     }
     
-    func getTabName(for page: TabBarTab) -> String{
+    func getTabName(for page: Tab) -> String {
         switch page {
-        case .main:
+        case .mainViewCoordinator:
             "Поиск"
         case .favourites:
             "Избранное"
@@ -56,42 +53,6 @@ class TabBarViewModel: ObservableObject {
             "Сообщения"
         case .profile:
             "Профиль"
-        case .signIn:
-            ""
-        }
-    }
-    
-    func getTab(from page: Page) -> TabBarTab {
-        switch page {
-        case .main:
-                .main
-        case .favourites:
-                .favourites
-        case .responses:
-                .responses
-        case .messages:
-                .messages
-        case .profile:
-                .profile
-        default:
-                .signIn
-        }
-    }
-        
-    func getPage(from tab: TabBarTab) -> Page {
-        switch tab {
-        case .main:
-                .main(dataManager.mainViewData)
-        case .favourites:
-                .favourites(getFavorites())
-        case .responses:
-                .responses
-        case .messages:
-                .messages
-        case .profile:
-                .profile
-        case .signIn:
-                .signIn
         }
     }
 }

@@ -50,13 +50,13 @@ class SignInViewModel: ObservableObject {
     func focusNextField(focusedField: FocusableField?) -> FocusableField? {
         switch focusedField {
         case .firstDigit:
-            /*focusedField = */return .secondDigit
+            return .secondDigit
         case .secondDigit:
-            /*focusedField = */return .thirdDigit
+            return .thirdDigit
         case .thirdDigit:
-            /*focusedField = */return .fourthDigit
+            return .fourthDigit
         case .fourthDigit:
-            /*focusedField = */return nil
+            return nil
         case .none:
             return nil
         }

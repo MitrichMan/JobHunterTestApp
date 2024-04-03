@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CoordinatorView: View {
     @StateObject private var coordinator = Coordinator()
-    
+
     var body: some View {
         ZStack {
             Color.black
@@ -17,9 +17,9 @@ struct CoordinatorView: View {
             
             VStack {
                 NavigationStack(path: $coordinator.path) {
-                    coordinator.build(page: DataManager.shared.getStartPage())
-                        .navigationDestination(for: Page.self) { page in
-                            coordinator.build(page: page)
+                    coordinator.build(tab: coordinator.presentedTab)
+                        .navigationDestination(for: Tab.self) { tab in
+                            coordinator.build(tab: tab)
                         }
                 }
                 .environmentObject(coordinator)
@@ -27,7 +27,6 @@ struct CoordinatorView: View {
                 
                 TabBarView()
                     .environmentObject(coordinator)
-                    .padding(.horizontal, 8)
             }
         }
         // TODO: - fetch real data mhen API is fixed

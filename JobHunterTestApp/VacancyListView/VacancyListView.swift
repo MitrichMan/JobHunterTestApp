@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct VacancyListView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+    @EnvironmentObject private var mainViewCoordinator: MainViewCoordinator
     
     @State var searchPromptText = ""
-    @State var vacancyIsPresented = false
-    @Binding var vacancyListIsPresented: Bool
         
     var vacancies: [Vacancy]
     
@@ -30,7 +28,7 @@ struct VacancyListView: View {
                                 .shadow(color: .shadow, radius: 2, y:4)
                             HStack {
                                 Button {
-                                    vacancyListIsPresented = false
+                                    mainViewCoordinator.pop()
                                 } label: {
                                     Image(.leftArrowDefault)
                                         .resizable()
@@ -98,16 +96,8 @@ struct VacancyListView: View {
                     ForEach(vacancies, id: \.self) { vacancy in
                         VacancyListCellView(vacancy: vacancy)
                             .onTapGesture(perform: {
-//                                coordinator.push(.vacancy(vacancy))
-                                vacancyIsPresented = true
+                                mainViewCoordinator.push(.vacancy(vacancy))
                             })
-                        
-                            
-                            .fullScreenCover(
-                                isPresented: $vacancyIsPresented
-                            )  {
-                                VacancyView(vacancyIsPresented: $vacancyIsPresented, vacancy: vacancy)
-                            }
                     }
                     .padding(.horizontal)
                 }
@@ -147,7 +137,6 @@ struct VacancyListView: View {
 
 #Preview {
     VacancyListView(
-        vacancyListIsPresented: .constant(true),
         vacancies: [
             Vacancy(
                 id: "cbf0c984-7c6c-4ada-82da-e29dc698bb50",

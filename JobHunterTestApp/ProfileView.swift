@@ -21,7 +21,7 @@ struct ProfileView: View {
                 
                 Button {
                     DataManager.shared.isLoggedIn = false
-                    coordinator.presentedPage = .main(DataManager.shared.mainViewData)
+                    coordinator.presentedTab = .mainViewCoordinator
                     coordinator.popToRoot()
                 } label: {
                     HStack {

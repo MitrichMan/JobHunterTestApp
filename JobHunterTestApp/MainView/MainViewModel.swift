@@ -8,7 +8,7 @@
 import SwiftUI
 
 class MainViewModel: ObservableObject {    
-    @Published var vacancies: [Vacancy] = DataManager.shared.mainViewData.vacancies
+    @Published var vacancies: [Vacancy] = DataManager.shared.mockMainViewDataResponse.vacancies
     
     var offers: [Offer] = DataManager.shared.mainViewData.offers
         
