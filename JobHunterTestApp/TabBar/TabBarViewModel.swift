@@ -11,12 +11,27 @@ class TabBarViewModel: ObservableObject {
     @ObservedObject var dataManager = DataManager.shared
     
     @Published var foregroundColor = Color.gray
+    
+    func getView(for tab: Tab) -> any View {
+        switch tab {
+        case let .favourites(favourites):
+            FavouritesView(favourites: favourites)
+        case .responses:
+            ResponsesView()
+        case .messages:
+            MessagesView()
+        case .profile:
+            ProfileView()
+        case .mainViewCoordinator:
+            MainViewCoordinatorView()
+        }
+    }
         
     func getcolor(if tab: Tab, matches selectedTab: Tab) -> Color {
         if tab == selectedTab {
             return Color.blue
         } else {
-            return Color.gray
+            return Color.gray4
         }
     }
     
@@ -53,6 +68,21 @@ class TabBarViewModel: ObservableObject {
             "Сообщения"
         case .profile:
             "Профиль"
+        }
+    }
+    
+    @ViewBuilder func build(tab: Tab) -> some View {
+        switch tab {
+        case let .favourites(favourites):
+            FavouritesView(favourites: favourites)
+        case .responses:
+            ResponsesView()
+        case .messages:
+            MessagesView()
+        case .profile:
+            ProfileView()
+        case .mainViewCoordinator:
+            MainViewCoordinatorView()
         }
     }
 }

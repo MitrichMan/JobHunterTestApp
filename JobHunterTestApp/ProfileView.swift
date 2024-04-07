@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+//    @EnvironmentObject private var coordinator: Coordinator
     
     var body: some View {
         ZStack {
@@ -21,8 +21,8 @@ struct ProfileView: View {
                 
                 Button {
                     DataManager.shared.isLoggedIn = false
-                    coordinator.presentedTab = .mainViewCoordinator
-                    coordinator.popToRoot()
+//                    coordinator.presentedTab = .mainViewCoordinator
+//                    coordinator.popToRoot()
                 } label: {
                     HStack {
                         Spacer()

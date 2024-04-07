@@ -11,12 +11,11 @@ struct MainViewCoordinatorView: View {
     @StateObject private var mainViewCoordinator = MainViewCoordinator()
 
     var body: some View {
-        
         ZStack {
             Color.black
                 .ignoresSafeArea()
             
-            NavigationStack(path: $mainViewCoordinator.MainViewCoordinatorPath) {
+            NavigationStack(path: $mainViewCoordinator.mainViewCoordinatorPath) {
                 mainViewCoordinator.build(page: .signIn)
                     .environmentObject(mainViewCoordinator)
                     .navigationDestination(for: Page.self) { page in
@@ -25,6 +24,15 @@ struct MainViewCoordinatorView: View {
                     }
             }
             .environmentObject(mainViewCoordinator)
+        }
+// TODO: - fetch real data mhen API is fixed
+        .task {
+            if !DataManager.shared.isDataFetched {
+//            await DataManager.shared.fetchMainViewData()
+                if DataManager.shared.isLoggedIn {
+                    await DataManager.shared.fetchMockData()
+                }
+            }
         }
     }
 }

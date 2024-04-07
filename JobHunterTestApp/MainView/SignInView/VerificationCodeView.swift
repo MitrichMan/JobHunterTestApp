@@ -82,6 +82,7 @@ struct VerificationCodeView: View {
                 Button {
                     viewModel.dataManager.isLoggedIn = true
                     mainViewCoordinator.push(.main(viewModel.dataManager.mainViewData))
+                    
                 } label: {
                     ZStack {
                         if isCodeEntered {

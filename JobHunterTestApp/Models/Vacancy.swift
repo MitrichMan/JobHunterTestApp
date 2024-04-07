@@ -55,3 +55,8 @@ struct Salary: Decodable, Hashable {
     let full: String
     let short: String?
 }
+
+//struct NavigationPaths {
+//    var tab: NavigationPath
+//    var page: NavigationPath
+//}

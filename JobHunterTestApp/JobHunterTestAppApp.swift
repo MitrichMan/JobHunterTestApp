@@ -11,7 +11,8 @@ import SwiftUI
 struct JobHunterTestAppApp: App {
     var body: some Scene {
         WindowGroup {
-            CoordinatorView()
+//            CoordinatorView()
+            TabBarView()
         }
     }
 }

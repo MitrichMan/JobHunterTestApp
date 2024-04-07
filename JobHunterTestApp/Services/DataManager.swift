@@ -6,15 +6,24 @@
 //
 
 import Foundation
+//import Combine
 
 class DataManager: ObservableObject {
     @Published var emailIsValid = false
     @Published var isLoggedIn = false
     
-    @Published var isDataFetched = false
+    @Published var isDataFetched = false 
+//    {
+//        didSet {
+//            print(isDataFetched)
+////            objectWillChange.send()
+//        }
+//    }
     
     @Published var mainViewData = MainViewDataResponse(offers: [], vacancies: [])
-            
+    
+//    @Published var navigationPaths = NavigationPaths(tab: NavigationPath(), page: NavigationPath())
+    
     let tabBarTabs: [Tab] = [.mainViewCoordinator, .favourites([]), .responses, .messages, .profile]
 
     let mockMainViewDataResponse = MainViewDataResponse(
@@ -148,6 +157,8 @@ class DataManager: ObservableObject {
             )
         ]
     )
+    
+//    let objectWillChange = ObservableObjectPublisher()
             
     static let shared = DataManager()
     
@@ -169,21 +180,13 @@ class DataManager: ObservableObject {
     @MainActor func fetchMockData() async {
         mainViewData = mockMainViewDataResponse
         
-        try? await Task.sleep(nanoseconds: 5_000_000_000)
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
         
         DispatchQueue.main.async {
             DataManager.shared.isDataFetched = true
         }
     }
 }
-
-//enum TabBarTab: CaseIterable {
-//    case main
-//    case favourites
-//    case responses
-//    case messages
-//    case profile
-//}
 
 enum Tab: Hashable {
     case mainViewCoordinator

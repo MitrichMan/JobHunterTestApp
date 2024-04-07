@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavouritesView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+//    @EnvironmentObject private var coordinator: Coordinator
     
     var favourites: [Vacancy]
     

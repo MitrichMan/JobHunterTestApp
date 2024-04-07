@@ -8,24 +8,57 @@
 import SwiftUI
 
 @MainActor class MainViewCoordinator: ObservableObject {
-    @Published var MainViewCoordinatorPath = NavigationPath()
+//    @Published var mainViewCoordinatorPath = NavigationPath()
+//    @Published var presentedPage: Page = .main(DataManager.shared.mainViewData)
     
+    @Published var mainViewCoordinatorPath: NavigationPath {
+        didSet {
+            save()
+        }
+    }
+    
+    private let savedPath = URL.documentsDirectory.appending(path: "SavedPath")
+    
+    init() {
+        if let data = try? Data(contentsOf: savedPath) {
+            if let decoded = try? JSONDecoder().decode(NavigationPath.CodableRepresentation.self, from: data) {
+                mainViewCoordinatorPath = NavigationPath(decoded)
+                return
+            }
+        }
+        mainViewCoordinatorPath = NavigationPath()
+    }
+    
+    func save() {
+        guard let representation = mainViewCoordinatorPath.codable else { return }
+        
+        do {
+            let data = try JSONEncoder().encode(representation)
+            try data.write(to: savedPath)
+        } catch {
+            print("Failed to save navigation data")
+        }
+    }
+
     func push(_ page: Page) {
-        print("MaiCoord before push \(MainViewCoordinatorPath)")
-        MainViewCoordinatorPath.append(page)
-        print("MaiCoord after push \(MainViewCoordinatorPath)")
+        print("MaiCoord before push \(mainViewCoordinatorPath)")
+        mainViewCoordinatorPath.append(page)
+        save()
+        print("MaiCoord after push \(mainViewCoordinatorPath)")
     }
     
     func pop() {
-        print("MaiCoord before pop \(MainViewCoordinatorPath)")
-        MainViewCoordinatorPath.removeLast()
-        print("MaiCoord after pop \(MainViewCoordinatorPath)")
+        print("MaiCoord before pop \(mainViewCoordinatorPath)")
+        mainViewCoordinatorPath.removeLast()
+        save()
+        print("MaiCoord after pop \(mainViewCoordinatorPath)")
     }
     
     func popToRoot() {
-        print("MaiCoord before popToRoot \(MainViewCoordinatorPath)")
-        MainViewCoordinatorPath.removeLast(MainViewCoordinatorPath.count)
-        print("MaiCoord after popToRoot \(MainViewCoordinatorPath)")
+        print("MaiCoord before popToRoot \(mainViewCoordinatorPath)")
+        mainViewCoordinatorPath.removeLast(mainViewCoordinatorPath.count)
+        save()
+        print("MaiCoord after popToRoot \(mainViewCoordinatorPath)")
     }
     
     @ViewBuilder func build(page: Page) -> some View {

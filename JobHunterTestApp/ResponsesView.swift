@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ResponsesView: View {
-    @EnvironmentObject private var coordinator: Coordinator
+//    @EnvironmentObject private var coordinator: Coordinator
 
     var body: some View {
         ZStack {

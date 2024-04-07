@@ -8,34 +8,35 @@
 import SwiftUI
 
 struct CoordinatorView: View {
-    @StateObject private var coordinator = Coordinator()
+//    @StateObject private var coordinator = Coordinator()
+
 
     var body: some View {
         ZStack {
-            Color.black
-                .ignoresSafeArea()
+            Color.black.ignoresSafeArea()
             
-            VStack {
-                NavigationStack(path: $coordinator.path) {
-                    coordinator.build(tab: coordinator.presentedTab)
-                        .navigationDestination(for: Tab.self) { tab in
-                            coordinator.build(tab: tab)
-                        }
-                }
-                .environmentObject(coordinator)
-                .layoutPriority(1)
+//            VStack {
+//                NavigationStack(path: $coordinator.path) {
+//                    coordinator.build(tab: coordinator.presentedTab)
+//                        .navigationDestination(for: Tab.self) { tab in
+//                            coordinator.build(tab: tab)
+//                        }
+//                }
+//                .environmentObject(coordinator)
+//                .layoutPriority(1)
                 
                 TabBarView()
-                    .environmentObject(coordinator)
+//                    .environmentObject(coordinator)
             }
-        }
-        // TODO: - fetch real data mhen API is fixed
-        .task {
-            if !DataManager.shared.isDataFetched {
-//            await DataManager.shared.fetchMainViewData()
-                await DataManager.shared.fetchMockData()
-            }
-        }
+//        }
+        
+//        // TODO: - fetch real data mhen API is fixed
+//        .task {
+//            if !DataManager.shared.isDataFetched {
+////            await DataManager.shared.fetchMainViewData()
+//                await DataManager.shared.fetchMockData()
+//            }
+//        }
     }
 }
 
